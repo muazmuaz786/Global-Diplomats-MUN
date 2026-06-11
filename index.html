@@ -6,84 +6,76 @@
   <title>Global Step MUN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    /* ── Reset ─────────────────────────────────────────── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --gold:    #C9A020;
-      --gold2:   #E8C040;
-      --black:   #0a0a0a;
-      --dark:    #111111;
-      --dark2:   #181818;
-      --border:  rgba(255,255,255,0.08);
-      --dim:     rgba(255,255,255,0.55);
+      --red:      #8B1A1A;
+      --red2:     #A52020;
+      --red3:     #C02828;
+      --cream:    #E8D5A3;
+      --cream2:   #F5ECD8;
+      --black:    #080606;
+      --dark:     #100808;
+      --dark2:    #180c0c;
+      --border:   rgba(139,26,26,0.25);
+      --border2:  rgba(232,213,163,0.12);
+      --dim:      rgba(255,255,255,0.5);
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--black); color: #fff; overflow-x: hidden; }
 
-    /* ── INTRO SCREEN ──────────────────────────────────── */
+    /* ── INTRO ──────────────────────────────────────── */
     #intro {
       height: 100svh; min-height: 100vh;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      background: var(--black); text-align: center;
-      padding: 2rem;
+      background: var(--black); text-align: center; padding: 2rem;
+      position: relative; overflow: hidden;
     }
-
-    /* Glowing logo ring */
-    .glow-ring {
-      position: relative;
-      width: 150px; height: 150px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 2.5rem;
-    }
-    .glow-ring::before {
-      content: '';
-      position: absolute; inset: -15px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,160,32,.22) 0%, rgba(201,160,32,.06) 55%, transparent 75%);
-      animation: pulse 3s ease-in-out infinite;
-    }
-    .glow-ring::after {
+    #intro::before {
       content: '';
       position: absolute; inset: 0;
-      border-radius: 50%;
-      border: 1.5px solid rgba(201,160,32,.35);
-      box-shadow: 0 0 30px rgba(201,160,32,.25), 0 0 60px rgba(201,160,32,.1);
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(139,26,26,0.15) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .glow-ring svg { width: 90px; height: 90px; position: relative; z-index: 1; }
-    @keyframes pulse {
-      0%,100% { opacity:.7; transform:scale(1); }
-      50%      { opacity:1;  transform:scale(1.08); }
+
+    .logo-hero {
+      position: relative; margin-bottom: 2.5rem; display: inline-block;
+    }
+    .logo-hero img {
+      width: 170px; height: 170px; object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 0 0 1px rgba(139,26,26,.5),
+                  0 0 30px rgba(139,26,26,.4),
+                  0 0 70px rgba(139,26,26,.18);
+      animation: rpulse 3s ease-in-out infinite;
+    }
+    @keyframes rpulse {
+      0%,100% { box-shadow: 0 0 0 1px rgba(139,26,26,.5), 0 0 30px rgba(139,26,26,.4), 0 0 70px rgba(139,26,26,.18); }
+      50%      { box-shadow: 0 0 0 1px rgba(139,26,26,.7), 0 0 50px rgba(139,26,26,.6), 0 0 100px rgba(139,26,26,.28); }
     }
 
     .intro-title {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(3.5rem, 14vw, 7rem);
-      letter-spacing: .04em; line-height: .95;
-      color: #fff; text-align: center;
+      letter-spacing: .04em; line-height: .95; color: #fff;
     }
     .intro-year {
+      display: block; color: var(--red3);
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(3.5rem, 14vw, 7rem);
-      color: var(--gold); letter-spacing: .04em; line-height: .95;
-      display: block;
+      letter-spacing: .04em; line-height: .95;
     }
-    .intro-rule { width: 100%; max-width: 380px; height: 1px; background: rgba(255,255,255,.15); margin: 1.8rem auto; }
-    .intro-sub {
-      font-size: clamp(.65rem, 2.2vw, .78rem);
-      letter-spacing: .35em; color: var(--dim); text-transform: uppercase;
-    }
+    .intro-rule { width: 100%; max-width: 360px; height: 1px; background: rgba(139,26,26,.4); margin: 1.8rem auto; }
+    .intro-sub { font-size: clamp(.6rem,2vw,.75rem); letter-spacing: .38em; color: var(--dim); text-transform: uppercase; }
 
-    /* ── STICKY NAV ───────────────────────────────────── */
+    /* ── NAV ────────────────────────────────────────── */
     nav {
       position: sticky; top: 0; z-index: 1000;
       display: flex; align-items: center; justify-content: space-between;
       padding: 1rem 1.4rem;
-      background: var(--black);
-      border-bottom: 1px solid var(--border);
+      background: var(--black); border-bottom: 1px solid var(--border);
     }
     .nav-logo { display: flex; align-items: center; gap: .55rem; text-decoration: none; }
     .nav-logo svg { width: 28px; height: 28px; }
@@ -92,239 +84,148 @@
     .nav-right { display: flex; align-items: center; gap: 1.2rem; }
     .nav-social { display: flex; gap: .8rem; }
     .nav-social a { color: var(--dim); transition: color .2s; line-height: 0; }
-    .nav-social a:hover { color: #fff; }
+    .nav-social a:hover { color: var(--cream); }
     .nav-social svg { width: 18px; height: 18px; }
 
-    .hamburger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 4.5px; padding: 2px; }
+    .hamburger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 2px; }
     .hamburger span { width: 22px; height: 1.8px; background: #fff; display: block; transition: all .3s; }
-    .hamburger.open span:nth-child(1) { transform: translateY(6.3px) rotate(45deg); }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.8px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-6.3px) rotate(-45deg); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.8px) rotate(-45deg); }
 
     .nav-menu {
       display: none; position: fixed; inset: 0; z-index: 999;
       background: var(--black); flex-direction: column;
       align-items: center; justify-content: center; gap: 2.5rem;
-      padding-top: 80px;
     }
     .nav-menu.open { display: flex; }
     .nav-menu a {
-      font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem;
-      letter-spacing: .08em; color: #fff; text-decoration: none;
-      transition: color .2s;
+      font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem;
+      letter-spacing: .08em; color: #fff; text-decoration: none; transition: color .2s;
     }
-    .nav-menu a:hover { color: var(--gold); }
+    .nav-menu a:hover { color: var(--red3); }
 
-    /* ── MAIN SECTION ─────────────────────────────────── */
-    #main { padding: 2.5rem 1.4rem 0; max-width: 600px; margin: 0 auto; }
+    /* ── MAIN ───────────────────────────────────────── */
+    #main { padding: 2.8rem 1.4rem 0; max-width: 600px; margin: 0 auto; }
 
     .date-pill {
       display: inline-flex; align-items: center; gap: .5rem;
-      font-size: .72rem; color: var(--dim); letter-spacing: .1em;
-      margin-bottom: 1.4rem;
+      font-size: .72rem; color: var(--dim); letter-spacing: .1em; margin-bottom: 1.4rem;
     }
-    .date-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .date-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red3); flex-shrink: 0; }
 
     .main-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3.2rem, 16vw, 5.5rem);
-      line-height: .92; letter-spacing: .03em;
-      margin-bottom: 1.2rem;
+      font-size: clamp(3.2rem, 15vw, 5.5rem);
+      line-height: .92; letter-spacing: .03em; margin-bottom: 1.2rem;
     }
-    .main-title .accent { color: var(--gold); }
+    .main-title .accent { color: var(--red3); }
 
-    .tagline { font-size: .95rem; color: var(--dim); line-height: 1.6; margin-bottom: 1.5rem; font-weight: 300; }
+    .tagline { font-size: .95rem; color: var(--dim); line-height: 1.6; margin-bottom: .6rem; font-weight: 300; }
+    .tagline-quote {
+      font-family: 'Playfair Display', serif; font-size: 1.05rem;
+      font-style: italic; color: var(--cream); line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
 
     .open-date {
       display: flex; align-items: center; gap: .5rem;
       font-size: .72rem; font-weight: 600; letter-spacing: .12em;
-      color: var(--gold); text-transform: uppercase; margin-bottom: 2rem;
+      color: var(--red3); text-transform: uppercase; margin-bottom: 2rem;
     }
     .open-date::before { content: '•'; font-size: .9rem; }
 
-    /* CTA Buttons */
+    /* Buttons */
     .btn-register {
       display: flex; align-items: center; justify-content: space-between;
       width: 100%; padding: 1.1rem 1.5rem;
-      background: var(--gold); color: var(--black);
-      border: none; cursor: pointer;
-      font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: .12em;
-      text-transform: uppercase; text-decoration: none;
-      transition: background .25s; margin-bottom: .7rem;
+      background: var(--red); color: #fff;
+      border: none; cursor: pointer; text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: .15em;
+      text-transform: uppercase; transition: background .25s; margin-bottom: .7rem;
     }
-    .btn-register:hover { background: var(--gold2); }
-    .btn-register svg { width: 20px; height: 20px; }
+    .btn-register:hover { background: var(--red2); }
+    .btn-register svg { width: 20px; height: 20px; flex-shrink: 0; }
 
     .btn-committees {
       display: flex; align-items: center; justify-content: center; gap: .7rem;
       width: 100%; padding: 1.1rem 1.5rem;
-      background: transparent; color: #fff;
-      border: 1px solid rgba(255,255,255,.18); cursor: pointer;
-      font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: .12em;
-      text-transform: uppercase; text-decoration: none;
-      transition: border-color .25s; margin-bottom: 2rem;
+      background: transparent; color: #fff; text-decoration: none;
+      border: 1px solid rgba(255,255,255,.15); cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: .15em;
+      text-transform: uppercase; transition: border-color .25s; margin-bottom: 2rem;
     }
-    .btn-committees:hover { border-color: rgba(255,255,255,.45); }
-    .btn-committees svg { width: 18px; height: 18px; opacity: .6; }
+    .btn-committees:hover { border-color: var(--red3); color: var(--cream); }
+    .btn-committees svg { width: 18px; height: 18px; opacity: .55; }
 
     /* Stats */
     .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 4rem; }
-    .stat { background: var(--black); padding: 1.1rem .6rem; text-align: center; }
-    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: .04em; color: #fff; }
-    .stat-lbl { font-size: .58rem; letter-spacing: .12em; color: var(--dim); text-transform: uppercase; margin-top: .2rem; }
+    .stat { background: var(--black); padding: 1.1rem .5rem; text-align: center; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.75rem; letter-spacing: .04em; color: var(--red3); }
+    .stat-lbl { font-size: .56rem; letter-spacing: .12em; color: var(--dim); text-transform: uppercase; margin-top: .2rem; }
 
-    /* ── COMMITTEES ───────────────────────────────────── */
+    /* ── COMMITTEES ─────────────────────────────────── */
     #committees { padding: 0 0 4rem; }
-
     .section-header { padding: 3rem 1.4rem 2rem; max-width: 600px; margin: 0 auto; }
-    .section-eyebrow { font-size: .65rem; letter-spacing: .4em; color: var(--gold); text-transform: uppercase; margin-bottom: .7rem; }
+    .section-eyebrow { font-size: .62rem; letter-spacing: .45em; color: var(--red3); text-transform: uppercase; margin-bottom: .7rem; }
     .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem,8vw,3rem); letter-spacing: .05em; }
 
     .committees-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
 
-    .c-item {
-      background: var(--black);
-      position: relative; overflow: hidden;
-    }
-    .c-item-bg { position: absolute; inset: 0; opacity: .35; transition: opacity .4s; }
-    .c-item:hover .c-item-bg { opacity: .5; }
-
-    .c-item-inner {
-      position: relative; z-index: 1;
-      padding: 1.8rem 1.4rem;
-      max-width: 600px; margin: 0 auto;
-    }
+    .c-item { position: relative; overflow: hidden; background: var(--black); }
+    .c-item-bg { position: absolute; inset: 0; opacity: .4; transition: opacity .4s; }
+    .c-item:hover .c-item-bg { opacity: .55; }
+    .c-item-inner { position: relative; z-index: 1; padding: 1.8rem 1.4rem; max-width: 600px; margin: 0 auto; }
 
     .c-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
-    .c-type { font-size: .6rem; letter-spacing: .35em; color: var(--gold); text-transform: uppercase; margin-bottom: .3rem; }
-    .c-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.6rem,6vw,2.2rem); letter-spacing: .04em; line-height: 1; }
-    .c-logo svg { width: 38px; height: 38px; opacity: .7; flex-shrink: 0; }
+    .c-type { font-size: .58rem; letter-spacing: .38em; color: var(--cream); text-transform: uppercase; margin-bottom: .3rem; opacity: .8; }
+    .c-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.5rem, 6vw, 2.1rem); letter-spacing: .04em; line-height: 1; }
+    .c-logo img { width: 38px; height: 38px; flex-shrink: 0; border-radius: 5px; }
 
     .c-agenda {
-      font-size: .82rem; color: rgba(255,255,255,.72); line-height: 1.65;
-      border-left: 2px solid var(--gold); padding-left: .9rem;
+      font-size: .82rem; color: rgba(255,255,255,.75); line-height: 1.65;
+      border-left: 2px solid var(--red); padding-left: .9rem;
       font-style: italic; margin-bottom: 1.3rem;
     }
     .c-agenda-en { font-size: .72rem; color: var(--dim); margin-top: .4rem; font-style: normal; }
 
-    .c-divider { height: 1px; background: var(--border); margin-bottom: 1.2rem; }
+    .c-divider { height: 1px; background: rgba(139,26,26,.2); margin-bottom: 1.2rem; }
+    .c-chairs-label { font-size: .56rem; letter-spacing: .32em; color: var(--dim); text-transform: uppercase; margin-bottom: .9rem; }
 
-    .c-chairs-label { font-size: .58rem; letter-spacing: .3em; color: var(--dim); text-transform: uppercase; margin-bottom: .9rem; }
     .c-chairs { display: grid; grid-template-columns: repeat(3,1fr); gap: .8rem; }
     .c-chair { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .4rem; }
-    .c-chair img {
-      width: 58px; height: 58px; border-radius: 50%;
-      border: 1.5px solid rgba(201,160,32,.6); object-fit: cover;
-    }
-    .c-chair-name { font-size: .68rem; font-weight: 600; line-height: 1.2; }
-    .c-chair-role { font-size: .6rem; color: var(--gold); letter-spacing: .08em; }
+    .c-chair img { width: 58px; height: 58px; border-radius: 50%; border: 1.5px solid rgba(139,26,26,.7); object-fit: cover; }
+    .c-chair-name { font-size: .67rem; font-weight: 600; line-height: 1.2; }
+    .c-chair-role { font-size: .58rem; color: var(--cream); letter-spacing: .08em; opacity: .8; }
 
-    /* ── REGISTER MODAL ───────────────────────────────── */
-    .modal-wrap {
-      display: none; position: fixed; inset: 0; z-index: 9999;
-      align-items: center; justify-content: center;
-      background: rgba(0,0,0,.88); backdrop-filter: blur(6px);
-    }
-    .modal-wrap.open { display: flex; }
-    .modal {
-      background: var(--dark); border: 1px solid var(--border);
-      width: 92%; max-width: 420px;
-      padding: 2.5rem 2rem; position: relative; text-align: center;
-    }
-    .modal-bar { position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); }
-    .modal-x { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--dim); font-size: 1.3rem; cursor: pointer; transition: color .2s; }
-    .modal-x:hover { color: #fff; }
-    .modal svg { width: 50px; height: 50px; margin-bottom: 1.2rem; }
-    .modal h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: .06em; margin-bottom: .8rem; }
-    .modal p { font-size: .85rem; color: var(--dim); line-height: 1.7; margin-bottom: .6rem; }
-    .modal-close-btn {
-      display: block; width: 100%; margin-top: 1.4rem; padding: .85rem;
-      background: var(--gold); color: var(--black); border: none; cursor: pointer;
-      font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: .12em;
-      text-transform: uppercase; transition: background .2s;
-    }
-    .modal-close-btn:hover { background: var(--gold2); }
-
-    /* ── FOOTER ───────────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border); padding: 2.5rem 1.4rem;
-      text-align: center; background: var(--black);
-    }
+    /* ── FOOTER ─────────────────────────────────────── */
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 1.4rem; text-align: center; background: var(--black); }
     .footer-logo-row { display: flex; align-items: center; justify-content: center; gap: .55rem; margin-bottom: 1.2rem; }
     .footer-logo-row svg { width: 26px; height: 26px; }
     .footer-logo-row span { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .08em; }
-    footer p { font-size: .68rem; color: rgba(255,255,255,.22); }
+    footer p { font-size: .67rem; color: rgba(255,255,255,.2); }
   </style>
 </head>
 <body>
 
-<!-- ── INTRO ───────────────────────────────────────────── -->
+<!-- ── INTRO ────────────────────────────────────────────── -->
 <section id="intro">
-  <div class="glow-ring">
-    <svg id="logo-svg-intro" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white">
-      <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="1.4"/>
-      <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="white" stroke-width=".9"/>
-      <line x1="30" y1="50" x2="70" y2="50" stroke="white" stroke-width=".8"/>
-      <line x1="32" y1="43" x2="68" y2="43" stroke="white" stroke-width=".6"/>
-      <line x1="32" y1="57" x2="68" y2="57" stroke="white" stroke-width=".6"/>
-      <path d="M30,50 Q22,44 16,38" stroke="white" stroke-width="1" fill="none"/>
-      <path d="M30,50 Q20,50 13,50" stroke="white" stroke-width="1" fill="none"/>
-      <path d="M30,50 Q22,56 16,62" stroke="white" stroke-width="1" fill="none"/>
-      <ellipse cx="24" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(-35 24 46)"/>
-      <ellipse cx="18" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 18 41)"/>
-      <ellipse cx="20" cy="50" rx="4" ry="2.2" fill="white"/>
-      <ellipse cx="14" cy="50" rx="3.5" ry="1.8" fill="white"/>
-      <ellipse cx="24" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(35 24 54)"/>
-      <ellipse cx="18" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(40 18 59)"/>
-      <path d="M70,50 Q78,44 84,38" stroke="white" stroke-width="1" fill="none"/>
-      <path d="M70,50 Q80,50 87,50" stroke="white" stroke-width="1" fill="none"/>
-      <path d="M70,50 Q78,56 84,62" stroke="white" stroke-width="1" fill="none"/>
-      <ellipse cx="76" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(35 76 46)"/>
-      <ellipse cx="82" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(40 82 41)"/>
-      <ellipse cx="80" cy="50" rx="4" ry="2.2" fill="white"/>
-      <ellipse cx="86" cy="50" rx="3.5" ry="1.8" fill="white"/>
-      <ellipse cx="76" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(-35 76 54)"/>
-      <ellipse cx="82" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 82 59)"/>
-      <path d="M13,52 Q50,80 87,52" stroke="white" stroke-width="1" fill="none"/>
-    </svg>
+  <div class="logo-hero">
+    <img src="logo.jpg" alt="Global Step MUN"/>
   </div>
   <div class="intro-title">GLOBAL STEP<br>MUN<br><span class="intro-year">2025</span></div>
   <div class="intro-rule"></div>
   <p class="intro-sub">Global Step Model United Nations</p>
 </section>
 
-<!-- ── NAV ─────────────────────────────────────────────── -->
-<nav id="navbar">
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav>
   <a href="#" class="nav-logo">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white">
-      <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="1.4"/>
-      <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="white" stroke-width=".9"/>
-      <line x1="30" y1="50" x2="70" y2="50" stroke="white" stroke-width=".8"/>
-      <path d="M30,50 Q22,44 16,38" stroke="white" stroke-width="1" fill="none"/>
-      <path d="M30,50 Q20,50 13,50" stroke="white" stroke-width="1" fill="none"/>
-      <path d="M30,50 Q22,56 16,62" stroke="white" stroke-width="1" fill="none"/>
-      <ellipse cx="24" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(-35 24 46)"/>
-      <ellipse cx="18" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 18 41)"/>
-      <ellipse cx="20" cy="50" rx="4" ry="2.2" fill="white"/>
-      <ellipse cx="14" cy="50" rx="3.5" ry="1.8" fill="white"/>
-      <ellipse cx="24" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(35 24 54)"/>
-      <ellipse cx="18" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(40 18 59)"/>
-      <path d="M70,50 Q78,44 84,38" stroke="white" stroke-width="1" fill="none"/>
-      <path d="M70,50 Q80,50 87,50" stroke="white" stroke-width="1" fill="none"/>
-      <path d="M70,50 Q78,56 84,62" stroke="white" stroke-width="1" fill="none"/>
-      <ellipse cx="76" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(35 76 46)"/>
-      <ellipse cx="82" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(40 82 41)"/>
-      <ellipse cx="80" cy="50" rx="4" ry="2.2" fill="white"/>
-      <ellipse cx="86" cy="50" rx="3.5" ry="1.8" fill="white"/>
-      <ellipse cx="76" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(-35 76 54)"/>
-      <ellipse cx="82" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 82 59)"/>
-      <path d="M13,52 Q50,80 87,52" stroke="white" stroke-width="1" fill="none"/>
-    </svg>
+    <img src="logo.jpg" alt="Global Step MUN" style="width:34px;height:34px;object-fit:cover;border-radius:5px;"/>
     <span>GS MUN</span>
   </a>
   <div class="nav-right">
     <div class="nav-social">
-      <!-- Instagram -->
       <a href="#" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -332,7 +233,6 @@
           <circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/>
         </svg>
       </a>
-      <!-- Telegram -->
       <a href="#" aria-label="Telegram">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
@@ -345,14 +245,13 @@
   </div>
 </nav>
 
-<!-- Full-screen menu overlay -->
 <div class="nav-menu" id="navMenu">
-  <a href="#main"        onclick="closeMenu()">Home</a>
-  <a href="#committees"  onclick="closeMenu()">Committees</a>
-  <a href="#"            onclick="closeMenu(); openModal(event)">Register</a>
+  <a href="#main"       onclick="closeMenu()">Home</a>
+  <a href="#committees" onclick="closeMenu()">Committees</a>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfphpcm3JpdeKddfIsWaqgInnOXuydBKKgr-qd-_bBAtmp9oQ/viewform?usp=publish-editor" target="_blank" onclick="closeMenu()">Register</a>
 </div>
 
-<!-- ── MAIN CONTENT ─────────────────────────────────────── -->
+<!-- ── MAIN ─────────────────────────────────────────────── -->
 <div id="main">
   <p class="date-pill">2025 &nbsp;·&nbsp; TBA</p>
 
@@ -360,16 +259,18 @@
     GLOBAL<br>STEP<br>MODEL<br>UNITED<br><span class="accent">NATIONS</span>
   </h1>
 
-  <p class="tagline">A new generation of diplomats begins here.</p>
+  <p class="tagline-quote">"The world belongs to those who show up to shape it."</p>
+  <p class="tagline">The international student conference for leadership, debate, and global success.</p>
+  <p class="open-date">2025 — Registration is open</p>
 
-  <p class="open-date">2025 — See you at opening</p>
-
-  <button class="btn-register" onclick="openModal(event)">
+  <a class="btn-register"
+     href="https://docs.google.com/forms/d/e/1FAIpQLSfphpcm3JpdeKddfIsWaqgInnOXuydBKKgr-qd-_bBAtmp9oQ/viewform?usp=publish-editor"
+     target="_blank" rel="noopener">
     REGISTER NOW
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
     </svg>
-  </button>
+  </a>
 
   <a class="btn-committees" href="#committees">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -399,77 +300,19 @@
 <!-- ── FOOTER ────────────────────────────────────────────── -->
 <footer>
   <div class="footer-logo-row">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white">
-      <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="1.4"/>
-      <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="white" stroke-width=".9"/>
-      <line x1="30" y1="50" x2="70" y2="50" stroke="white" stroke-width=".8"/>
-      <path d="M30,50 Q22,44 16,38" stroke="white" stroke-width="1" fill="none"/>
-      <path d="M30,50 Q20,50 13,50" stroke="white" stroke-width="1" fill="none"/>
-      <path d="M30,50 Q22,56 16,62" stroke="white" stroke-width="1" fill="none"/>
-      <ellipse cx="24" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(-35 24 46)"/>
-      <ellipse cx="18" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 18 41)"/>
-      <ellipse cx="20" cy="50" rx="4" ry="2.2" fill="white"/>
-      <ellipse cx="14" cy="50" rx="3.5" ry="1.8" fill="white"/>
-      <ellipse cx="24" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(35 24 54)"/>
-      <ellipse cx="18" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(40 18 59)"/>
-      <path d="M70,50 Q78,44 84,38" stroke="white" stroke-width="1" fill="none"/>
-      <path d="M70,50 Q80,50 87,50" stroke="white" stroke-width="1" fill="none"/>
-      <path d="M70,50 Q78,56 84,62" stroke="white" stroke-width="1" fill="none"/>
-      <ellipse cx="76" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(35 76 46)"/>
-      <ellipse cx="82" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(40 82 41)"/>
-      <ellipse cx="80" cy="50" rx="4" ry="2.2" fill="white"/>
-      <ellipse cx="86" cy="50" rx="3.5" ry="1.8" fill="white"/>
-      <ellipse cx="76" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(-35 76 54)"/>
-      <ellipse cx="82" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 82 59)"/>
-      <path d="M13,52 Q50,80 87,52" stroke="white" stroke-width="1" fill="none"/>
-    </svg>
+    <img src="logo.jpg" alt="Global Step MUN" style="width:30px;height:30px;object-fit:cover;border-radius:4px;"/>
     <span>GLOBAL STEP MUN</span>
   </div>
   <p>&copy; 2025 Global Step MUN. All rights reserved.</p>
 </footer>
 
-<!-- ── MODAL ──────────────────────────────────────────────── -->
-<div class="modal-wrap" id="modalWrap" onclick="handleOverlay(event)">
-  <div class="modal">
-    <div class="modal-bar"></div>
-    <button class="modal-x" onclick="closeModal()">&#x00D7;</button>
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="#C9A020">
-      <circle cx="50" cy="50" r="20" fill="none" stroke="#C9A020" stroke-width="1.4"/>
-      <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="#C9A020" stroke-width=".9"/>
-      <line x1="30" y1="50" x2="70" y2="50" stroke="#C9A020" stroke-width=".8"/>
-      <path d="M30,50 Q22,44 16,38" stroke="#C9A020" stroke-width="1" fill="none"/>
-      <path d="M30,50 Q20,50 13,50" stroke="#C9A020" stroke-width="1" fill="none"/>
-      <path d="M30,50 Q22,56 16,62" stroke="#C9A020" stroke-width="1" fill="none"/>
-      <ellipse cx="24" cy="46" rx="4" ry="2.2" fill="#C9A020" transform="rotate(-35 24 46)"/>
-      <ellipse cx="18" cy="41" rx="3.5" ry="1.8" fill="#C9A020" transform="rotate(-40 18 41)"/>
-      <ellipse cx="20" cy="50" rx="4" ry="2.2" fill="#C9A020"/>
-      <ellipse cx="14" cy="50" rx="3.5" ry="1.8" fill="#C9A020"/>
-      <ellipse cx="24" cy="54" rx="4" ry="2.2" fill="#C9A020" transform="rotate(35 24 54)"/>
-      <ellipse cx="18" cy="59" rx="3.5" ry="1.8" fill="#C9A020" transform="rotate(40 18 59)"/>
-      <path d="M70,50 Q78,44 84,38" stroke="#C9A020" stroke-width="1" fill="none"/>
-      <path d="M70,50 Q80,50 87,50" stroke="#C9A020" stroke-width="1" fill="none"/>
-      <path d="M70,50 Q78,56 84,62" stroke="#C9A020" stroke-width="1" fill="none"/>
-      <ellipse cx="76" cy="46" rx="4" ry="2.2" fill="#C9A020" transform="rotate(35 76 46)"/>
-      <ellipse cx="82" cy="41" rx="3.5" ry="1.8" fill="#C9A020" transform="rotate(40 82 41)"/>
-      <ellipse cx="80" cy="50" rx="4" ry="2.2" fill="#C9A020"/>
-      <ellipse cx="86" cy="50" rx="3.5" ry="1.8" fill="#C9A020"/>
-      <ellipse cx="76" cy="54" rx="4" ry="2.2" fill="#C9A020" transform="rotate(-35 76 54)"/>
-      <ellipse cx="82" cy="59" rx="3.5" ry="1.8" fill="#C9A020" transform="rotate(-40 82 59)"/>
-      <path d="M13,52 Q50,80 87,52" stroke="#C9A020" stroke-width="1" fill="none"/>
-    </svg>
-    <h2>REGISTRATION</h2>
-    <p>Thank you for your interest in <strong>Global Step MUN</strong>.</p>
-    <p>The official registration form will be shared soon. Stay tuned on our Instagram and Telegram for the link.</p>
-    <button class="modal-close-btn" onclick="closeModal()">GOT IT</button>
-  </div>
-</div>
-
 <script>
-/* ── Committee Data ──────────────────────────────────── */
+const FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSfphpcm3JpdeKddfIsWaqgInnOXuydBKKgr-qd-_bBAtmp9oQ/viewform?usp=publish-editor';
+
 const committees = [
   { type:'UNGA', name:'GENERAL ASSEMBLY',
     agenda:'Addressing allegations of human rights violations against Uyghurs in Xinjiang including arbitrary detention, forced labour and cultural rights.',
-    gradient:'linear-gradient(135deg,#0d2240,#1a3a6b)',
+    gradient:'linear-gradient(135deg,#1a0808 0%,#3d1212 60%,#200a0a 100%)',
     chairs:[
       {name:'Sarah Chen',    role:'Chair',    img:'https://randomuser.me/api/portraits/women/44.jpg'},
       {name:'James Okafor', role:'Co-Chair', img:'https://randomuser.me/api/portraits/men/32.jpg'},
@@ -477,7 +320,7 @@ const committees = [
     ]},
   { type:'UNHRC', name:'HUMAN RIGHTS COUNCIL',
     agenda:'The mass harvesting of DNA and facial data to track, profile, and target civilian populations.',
-    gradient:'linear-gradient(135deg,#0d2620,#1a4535)',
+    gradient:'linear-gradient(135deg,#120a08 0%,#2d1510 60%,#1a0c0a 100%)',
     chairs:[
       {name:'Marcus Thompson',role:'Chair',   img:'https://randomuser.me/api/portraits/men/52.jpg'},
       {name:'Priya Sharma',   role:'Co-Chair',img:'https://randomuser.me/api/portraits/women/28.jpg'},
@@ -485,7 +328,7 @@ const committees = [
     ]},
   { type:'COMITTIE · UNICEF', name:'UNICEF',
     agenda:'Establishing global protocols for the legal protection, education, and mental healthcare of children displaced across borders by environmental disasters.',
-    gradient:'linear-gradient(135deg,#2d1a0a,#5c3515)',
+    gradient:'linear-gradient(135deg,#1a0d08 0%,#3d2010 60%,#200e08 100%)',
     chairs:[
       {name:'Emma Rodriguez',  role:'Chair',   img:'https://randomuser.me/api/portraits/women/15.jpg'},
       {name:'David Kimura',    role:'Co-Chair',img:'https://randomuser.me/api/portraits/men/63.jpg'},
@@ -493,7 +336,7 @@ const committees = [
     ]},
   { type:'UNESCO', name:'WORLD HERITAGE SITE',
     agenda:'Strengthening Global Protection for Cultural Heritage in Conflict Conditions.',
-    gradient:'linear-gradient(135deg,#2d2510,#5c4a20)',
+    gradient:'linear-gradient(135deg,#180e08 0%,#352008 60%,#1e1208 100%)',
     chairs:[
       {name:'Sophie Laurent',role:'Chair',   img:'https://randomuser.me/api/portraits/women/40.jpg'},
       {name:'Omar Benali',   role:'Co-Chair',img:'https://randomuser.me/api/portraits/men/21.jpg'},
@@ -501,7 +344,7 @@ const committees = [
     ]},
   { type:'WHO', name:'WORLD HEALTH ORGANIZATION',
     agenda:'Formulating global health guidelines to mitigate transmission risks in regions where wildlife, bushmeat, or rodent populations are utilized in local commerce and traditional practices.',
-    gradient:'linear-gradient(135deg,#050d2d,#0a1a5c)',
+    gradient:'linear-gradient(135deg,#0f0810 0%,#2a1230 60%,#180a20 100%)',
     chairs:[
       {name:'Dr. Amara Diallo',  role:'Chair',   img:'https://randomuser.me/api/portraits/women/73.jpg'},
       {name:'Dr. Raj Patel',     role:'Co-Chair',img:'https://randomuser.me/api/portraits/men/42.jpg'},
@@ -509,7 +352,7 @@ const committees = [
     ]},
   { type:'SC', name:'SECURITY COUNCIL',
     agenda:'Armed Conflict in the Eastern Democratic Republic of the Congo.',
-    gradient:'linear-gradient(135deg,#1a0808,#2d1212)',
+    gradient:'linear-gradient(135deg,#0f0808 0%,#200d0d 60%,#120808 100%)',
     chairs:[
       {name:'Alexander Petrov',role:'Chair',   img:'https://randomuser.me/api/portraits/men/88.jpg'},
       {name:'Amina Touré',     role:'Co-Chair',img:'https://randomuser.me/api/portraits/women/56.jpg'},
@@ -517,15 +360,15 @@ const committees = [
     ]},
   { type:'CRISIS', name:'CRISIS COMMITTEE',
     agenda:'Managing the triage, isolation, and treatment of the 147 passengers and crew in strict shipboard quarantine.',
-    gradient:'linear-gradient(135deg,#2d1500,#5c2d00)',
+    gradient:'linear-gradient(135deg,#200a08 0%,#4a1010 60%,#280d08 100%)',
     chairs:[
       {name:'Yuki Tanaka',       role:'Chair',   img:'https://randomuser.me/api/portraits/women/37.jpg'},
       {name:'Kevin Adeyemi',     role:'Co-Chair',img:'https://randomuser.me/api/portraits/men/64.jpg'},
       {name:'Sofia Papadopoulos',role:'Director',img:'https://randomuser.me/api/portraits/women/92.jpg'},
     ]},
-  { type:'UNCSW', name:'UNCSW',
+  { type:'UNCSW', name:'COMMISSION ON THE STATUS OF WOMEN',
     agenda:'Compensating women for the spike in unpaid household medical care.',
-    gradient:'linear-gradient(135deg,#1a0d28,#3d1a5c)',
+    gradient:'linear-gradient(135deg,#150810 0%,#301020 60%,#1c0a18 100%)',
     chairs:[
       {name:'Nadia Volkov', role:'Chair',   img:'https://randomuser.me/api/portraits/women/8.jpg'},
       {name:'Catherine Liu',role:'Co-Chair',img:'https://randomuser.me/api/portraits/women/49.jpg'},
@@ -534,7 +377,7 @@ const committees = [
   { type:'ЭКОСОС · ECOSOC', name:'ЭКОНОМИЧЕСКИЙ И СОЦИАЛЬНЫЙ СОВЕТ',
     agenda:'Помощь малым государствам в создании собственных ИИ-моделей на базе их национальной культуры.',
     agendaEn:'Assisting small states in creating their own AI models based on their national culture.',
-    gradient:'linear-gradient(135deg,#050d1a,#0a1f3d)',
+    gradient:'linear-gradient(135deg,#080a10 0%,#101828 60%,#0a0e18 100%)',
     chairs:[
       {name:'Viktor Kozlov',role:'Chair',   img:'https://randomuser.me/api/portraits/men/34.jpg'},
       {name:'Zara Ahmed',   role:'Co-Chair',img:'https://randomuser.me/api/portraits/women/60.jpg'},
@@ -542,53 +385,24 @@ const committees = [
     ]},
 ];
 
-/* ── Render Committees ───────────────────────────────── */
-const logoSmall = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white" style="opacity:.75">
-  <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="1.4"/>
-  <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="white" stroke-width=".9"/>
-  <line x1="30" y1="50" x2="70" y2="50" stroke="white" stroke-width=".8"/>
-  <path d="M30,50 Q22,44 16,38" stroke="white" stroke-width="1" fill="none"/>
-  <path d="M30,50 Q20,50 13,50" stroke="white" stroke-width="1" fill="none"/>
-  <path d="M30,50 Q22,56 16,62" stroke="white" stroke-width="1" fill="none"/>
-  <ellipse cx="24" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(-35 24 46)"/>
-  <ellipse cx="18" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 18 41)"/>
-  <ellipse cx="20" cy="50" rx="4" ry="2.2" fill="white"/>
-  <ellipse cx="14" cy="50" rx="3.5" ry="1.8" fill="white"/>
-  <ellipse cx="24" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(35 24 54)"/>
-  <ellipse cx="18" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(40 18 59)"/>
-  <path d="M70,50 Q78,44 84,38" stroke="white" stroke-width="1" fill="none"/>
-  <path d="M70,50 Q80,50 87,50" stroke="white" stroke-width="1" fill="none"/>
-  <path d="M70,50 Q78,56 84,62" stroke="white" stroke-width="1" fill="none"/>
-  <ellipse cx="76" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(35 76 46)"/>
-  <ellipse cx="82" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(40 82 41)"/>
-  <ellipse cx="80" cy="50" rx="4" ry="2.2" fill="white"/>
-  <ellipse cx="86" cy="50" rx="3.5" ry="1.8" fill="white"/>
-  <ellipse cx="76" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(-35 76 54)"/>
-  <ellipse cx="82" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 82 59)"/>
-  <path d="M13,52 Q50,80 87,52" stroke="white" stroke-width="1" fill="none"/>
-</svg>`;
+const logoSm = `<img src="logo.jpg" alt="Global Step MUN" style="width:38px;height:38px;object-fit:cover;border-radius:5px;opacity:.85;flex-shrink:0"/>`;
 
 document.getElementById('committeesEl').innerHTML = committees.map(c => {
   const chairs = c.chairs.map(ch => `
     <div class="c-chair">
       <img src="${ch.img}" alt="${ch.name}" loading="lazy"
-        onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2258%22 height=%2258%22%3E%3Ccircle cx=%2229%22 cy=%2229%22 r=%2229%22 fill=%22%23333%22/%3E%3Ctext x=%2229%22 y=%2234%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2218%22%3E${encodeURIComponent(ch.name[0])}%3C/text%3E%3C/svg%3E'"/>
+        onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2258%22 height=%2258%22%3E%3Ccircle cx=%2229%22 cy=%2229%22 r=%2229%22 fill=%22%23330a0a%22/%3E%3Ctext x=%2229%22 y=%2234%22 text-anchor=%22middle%22 fill=%22%23E8D5A3%22 font-size=%2218%22%3E${encodeURIComponent(ch.name[0])}%3C/text%3E%3C/svg%3E'"/>
       <div class="c-chair-name">${ch.name}</div>
       <div class="c-chair-role">${ch.role}</div>
     </div>`).join('');
-
   const extra = c.agendaEn ? `<p class="c-agenda-en">(${c.agendaEn})</p>` : '';
-
   return `
   <div class="c-item">
     <div class="c-item-bg" style="background:${c.gradient}"></div>
     <div class="c-item-inner">
       <div class="c-top">
-        <div>
-          <div class="c-type">${c.type}</div>
-          <div class="c-name">${c.name}</div>
-        </div>
-        <div class="c-logo">${logoSmall}</div>
+        <div><div class="c-type">${c.type}</div><div class="c-name">${c.name}</div></div>
+        <div class="c-logo">${logoSm}</div>
       </div>
       <div class="c-agenda">${c.agenda}${extra}</div>
       <div class="c-divider"></div>
@@ -598,8 +412,8 @@ document.getElementById('committeesEl').innerHTML = committees.map(c => {
   </div>`;
 }).join('');
 
-/* ── Hamburger / Menu ───────────────────────────────── */
-const hbg  = document.getElementById('hbg');
+/* Hamburger */
+const hbg = document.getElementById('hbg');
 const menu = document.getElementById('navMenu');
 hbg.addEventListener('click', () => {
   hbg.classList.toggle('open');
@@ -611,20 +425,6 @@ function closeMenu() {
   menu.classList.remove('open');
   document.body.style.overflow = '';
 }
-
-/* ── Modal ──────────────────────────────────────────── */
-function openModal(e) {
-  if (e) e.preventDefault();
-  closeMenu();
-  document.getElementById('modalWrap').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal() {
-  document.getElementById('modalWrap').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function handleOverlay(e) { if (e.target === e.currentTarget) closeModal(); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 </body>
 </html>
