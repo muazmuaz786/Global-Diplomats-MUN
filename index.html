@@ -1,681 +1,621 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Global Step MUN</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
-    /* ── Reset & Variables ─────────────────────────────── */
+    /* ── Reset ─────────────────────────────────────────── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --gold:        #c9a227;
-      --gold-light:  #e8c55a;
-      --dark:        #050810;
-      --dark2:       #0d1117;
-      --dark3:       #161b22;
-      --white:       #ffffff;
-      --dim:         rgba(255,255,255,0.65);
-      --glass:       rgba(255,255,255,0.04);
-      --gborder:     rgba(255,255,255,0.10);
+      --gold:    #C9A020;
+      --gold2:   #E8C040;
+      --black:   #0a0a0a;
+      --dark:    #111111;
+      --dark2:   #181818;
+      --border:  rgba(255,255,255,0.08);
+      --dim:     rgba(255,255,255,0.55);
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--dark); color: var(--white); overflow-x: hidden; }
+    body { font-family: 'Inter', sans-serif; background: var(--black); color: #fff; overflow-x: hidden; }
 
-    /* ── Navigation ────────────────────────────────────── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      padding: 1rem 3rem;
-      display: flex; align-items: center; justify-content: space-between;
-      background: rgba(5,8,16,0.75);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--gborder);
-      transition: background .3s;
-    }
-    nav.scrolled { background: rgba(5,8,16,0.98); }
-
-    .nav-logo { display: flex; align-items: center; gap: .75rem; text-decoration: none; color: #fff; }
-    .nav-logo svg { width: 38px; height: 38px; }
-    .nav-logo-text { font-family: 'Cinzel', serif; font-size: .95rem; font-weight: 700; letter-spacing: .15em; line-height: 1.2; }
-    .nav-logo-text span { display: block; font-size: .55rem; font-weight: 400; letter-spacing: .35em; color: var(--gold); margin-top: 2px; }
-
-    .nav-links { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
-    .nav-links a { text-decoration: none; color: var(--dim); font-size: .75rem; letter-spacing: .15em; text-transform: uppercase; font-weight: 500; transition: color .3s; }
-    .nav-links a:hover { color: var(--gold); }
-
-    .nav-reg {
-      background: transparent; border: 1px solid var(--gold); color: var(--gold);
-      padding: .45rem 1.4rem; font-family: 'Cinzel', serif; font-size: .7rem; letter-spacing: .2em;
-      cursor: pointer; text-transform: uppercase; transition: all .3s;
-    }
-    .nav-reg:hover { background: var(--gold); color: var(--dark); }
-
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
-    .hamburger span { width: 22px; height: 1.5px; background: #fff; display: block; }
-
-    /* ── Hero ──────────────────────────────────────────── */
-    #hero {
-      position: relative; height: 100vh;
-      display: flex; align-items: center; justify-content: center; overflow: hidden;
-    }
-    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 40%, #0a1a35 0%, #050810 100%); }
-    #particles { position: absolute; inset: 0; width: 100%; height: 100%; }
-
-    .hero-content {
-      position: relative; z-index: 10; text-align: center; padding: 2rem;
-      animation: fadeUp .9s ease forwards;
-    }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-    .hero-emblem { margin-bottom: 1.8rem; }
-    .hero-emblem svg { width: 130px; height: 130px; filter: drop-shadow(0 0 20px rgba(201,162,39,.5)); animation: glow 3s ease-in-out infinite; }
-    @keyframes glow {
-      0%,100% { filter: drop-shadow(0 0 12px rgba(201,162,39,.35)); }
-      50%      { filter: drop-shadow(0 0 28px rgba(201,162,39,.75)); }
+    /* ── INTRO SCREEN ──────────────────────────────────── */
+    #intro {
+      height: 100svh; min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: var(--black); text-align: center;
+      padding: 2rem;
     }
 
-    .hero-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.4rem, 6vw, 5.5rem);
-      font-weight: 900; letter-spacing: .08em; line-height: 1;
-      background: linear-gradient(135deg, #fff 0%, var(--gold) 50%, #fff 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    /* Glowing logo ring */
+    .glow-ring {
+      position: relative;
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 2.5rem;
     }
-    .hero-sub {
-      font-family: 'Cinzel', serif; font-size: clamp(.75rem, 1.8vw, 1rem);
-      letter-spacing: .5em; color: var(--gold); margin-top: .6rem; text-transform: uppercase;
+    .glow-ring::before {
+      content: '';
+      position: absolute; inset: -15px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,160,32,.22) 0%, rgba(201,160,32,.06) 55%, transparent 75%);
+      animation: pulse 3s ease-in-out infinite;
     }
-    .hero-line { width: 90px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 1.8rem auto; }
-    .hero-tagline { font-size: clamp(.85rem, 1.4vw, 1.05rem); color: var(--dim); max-width: 440px; margin: 0 auto; line-height: 1.7; font-weight: 300; }
-
-    .hero-cta { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem; }
-    .btn-gold {
-      background: var(--gold); color: var(--dark); border: none;
-      padding: .9rem 2.4rem; font-family: 'Cinzel', serif; font-size: .82rem; font-weight: 700;
-      letter-spacing: .18em; cursor: pointer; text-transform: uppercase; transition: all .3s;
-      clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
-    }
-    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,162,39,.4); }
-    .btn-outline {
-      background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.25);
-      padding: .9rem 2.4rem; font-family: 'Cinzel', serif; font-size: .82rem;
-      letter-spacing: .18em; cursor: pointer; text-transform: uppercase; transition: all .3s;
-    }
-    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-
-    .scroll-hint {
-      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: .4rem;
-      opacity: .4; animation: bob 2s ease-in-out infinite;
-    }
-    .scroll-hint span { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; }
-    .scroll-hint::after {
-      content: ''; display: block; width: 16px; height: 16px;
-      border-right: 1px solid #fff; border-bottom: 1px solid #fff; transform: rotate(45deg);
-    }
-    @keyframes bob {
-      0%,100% { transform: translateX(-50%) translateY(0); }
-      50%      { transform: translateX(-50%) translateY(8px); }
-    }
-
-    /* ── Section Shared ────────────────────────────────── */
-    .sec-header { text-align: center; padding: 5rem 2rem 3rem; }
-    .sec-label  { font-size: .65rem; letter-spacing: .45em; color: var(--gold); text-transform: uppercase; margin-bottom: .9rem; }
-    .sec-title  { font-family: 'Cinzel', serif; font-size: clamp(1.7rem, 4vw, 3rem); font-weight: 700; letter-spacing: .08em; }
-    .sec-bar    { width: 70px; height: 2px; background: var(--gold); margin: 1.4rem auto 0; }
-
-    /* ── About ─────────────────────────────────────────── */
-    #about { padding: 0 2rem 5rem; background: var(--dark2); }
-    .about-grid { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 1.5rem; }
-    .about-card { background: var(--glass); border: 1px solid var(--gborder); padding: 2rem 1.8rem; text-align: center; transition: border-color .3s; }
-    .about-card:hover { border-color: var(--gold); }
-    .about-icon { font-size: 2.2rem; margin-bottom: 1rem; }
-    .about-card h3 { font-family: 'Cinzel', serif; font-size: .95rem; letter-spacing: .08em; color: var(--gold); margin-bottom: .7rem; }
-    .about-card p  { font-size: .85rem; color: var(--dim); line-height: 1.7; }
-
-    /* ── Committees ────────────────────────────────────── */
-    #committees { padding: 0 0 5rem; }
-    .committees-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 3px; }
-
-    .committee-card {
-      position: relative; min-height: 640px;
-      display: flex; flex-direction: column; overflow: hidden;
-      cursor: default;
-    }
-    .c-bg { position: absolute; inset: 0; transition: transform .6s ease; }
-    .committee-card:hover .c-bg { transform: scale(1.04); }
-    .c-overlay {
+    .glow-ring::after {
+      content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(5,8,16,.25) 0%, rgba(5,8,16,.65) 45%, rgba(5,8,16,.97) 100%);
+      border-radius: 50%;
+      border: 1.5px solid rgba(201,160,32,.35);
+      box-shadow: 0 0 30px rgba(201,160,32,.25), 0 0 60px rgba(201,160,32,.1);
     }
-    .c-content {
-      position: relative; z-index: 10; padding: 2.5rem 2rem;
-      display: flex; flex-direction: column; height: 100%; min-height: 640px;
+    .glow-ring svg { width: 90px; height: 90px; position: relative; z-index: 1; }
+    @keyframes pulse {
+      0%,100% { opacity:.7; transform:scale(1); }
+      50%      { opacity:1;  transform:scale(1.08); }
     }
 
-    /* Logo in committee */
-    .c-logo { display: flex; flex-direction: column; align-items: center; margin-bottom: auto; padding-top: .5rem; }
-    .c-logo svg { width: 52px; height: 52px; opacity: .85; }
-    .c-logo-lbl { font-family: 'Cinzel', serif; font-size: .55rem; letter-spacing: .3em; color: rgba(255,255,255,.6); margin-top: .35rem; }
+    .intro-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 14vw, 7rem);
+      letter-spacing: .04em; line-height: .95;
+      color: #fff; text-align: center;
+    }
+    .intro-year {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 14vw, 7rem);
+      color: var(--gold); letter-spacing: .04em; line-height: .95;
+      display: block;
+    }
+    .intro-rule { width: 100%; max-width: 380px; height: 1px; background: rgba(255,255,255,.15); margin: 1.8rem auto; }
+    .intro-sub {
+      font-size: clamp(.65rem, 2.2vw, .78rem);
+      letter-spacing: .35em; color: var(--dim); text-transform: uppercase;
+    }
 
-    /* Committee identity */
-    .c-type { font-family: 'Cinzel', serif; font-size: .65rem; letter-spacing: .4em; color: var(--gold); text-align: center; margin: 1.2rem 0 .3rem; text-transform: uppercase; }
-    .c-name { font-family: 'Cinzel', serif; font-size: clamp(1.2rem,2.5vw,1.9rem); font-weight: 900; text-align: center; letter-spacing: .06em; text-transform: uppercase; line-height: 1.2; text-shadow: 0 2px 20px rgba(0,0,0,.8); }
+    /* ── STICKY NAV ───────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.4rem;
+      background: var(--black);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: .55rem; text-decoration: none; }
+    .nav-logo svg { width: 28px; height: 28px; }
+    .nav-logo span { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: .08em; color: #fff; }
 
-    /* Agenda box */
+    .nav-right { display: flex; align-items: center; gap: 1.2rem; }
+    .nav-social { display: flex; gap: .8rem; }
+    .nav-social a { color: var(--dim); transition: color .2s; line-height: 0; }
+    .nav-social a:hover { color: #fff; }
+    .nav-social svg { width: 18px; height: 18px; }
+
+    .hamburger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 4.5px; padding: 2px; }
+    .hamburger span { width: 22px; height: 1.8px; background: #fff; display: block; transition: all .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.3px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.3px) rotate(-45deg); }
+
+    .nav-menu {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: var(--black); flex-direction: column;
+      align-items: center; justify-content: center; gap: 2.5rem;
+      padding-top: 80px;
+    }
+    .nav-menu.open { display: flex; }
+    .nav-menu a {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem;
+      letter-spacing: .08em; color: #fff; text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-menu a:hover { color: var(--gold); }
+
+    /* ── MAIN SECTION ─────────────────────────────────── */
+    #main { padding: 2.5rem 1.4rem 0; max-width: 600px; margin: 0 auto; }
+
+    .date-pill {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .72rem; color: var(--dim); letter-spacing: .1em;
+      margin-bottom: 1.4rem;
+    }
+    .date-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+    .main-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.2rem, 16vw, 5.5rem);
+      line-height: .92; letter-spacing: .03em;
+      margin-bottom: 1.2rem;
+    }
+    .main-title .accent { color: var(--gold); }
+
+    .tagline { font-size: .95rem; color: var(--dim); line-height: 1.6; margin-bottom: 1.5rem; font-weight: 300; }
+
+    .open-date {
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .72rem; font-weight: 600; letter-spacing: .12em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 2rem;
+    }
+    .open-date::before { content: '•'; font-size: .9rem; }
+
+    /* CTA Buttons */
+    .btn-register {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 1.1rem 1.5rem;
+      background: var(--gold); color: var(--black);
+      border: none; cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: .12em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background .25s; margin-bottom: .7rem;
+    }
+    .btn-register:hover { background: var(--gold2); }
+    .btn-register svg { width: 20px; height: 20px; }
+
+    .btn-committees {
+      display: flex; align-items: center; justify-content: center; gap: .7rem;
+      width: 100%; padding: 1.1rem 1.5rem;
+      background: transparent; color: #fff;
+      border: 1px solid rgba(255,255,255,.18); cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: .12em;
+      text-transform: uppercase; text-decoration: none;
+      transition: border-color .25s; margin-bottom: 2rem;
+    }
+    .btn-committees:hover { border-color: rgba(255,255,255,.45); }
+    .btn-committees svg { width: 18px; height: 18px; opacity: .6; }
+
+    /* Stats */
+    .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 4rem; }
+    .stat { background: var(--black); padding: 1.1rem .6rem; text-align: center; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: .04em; color: #fff; }
+    .stat-lbl { font-size: .58rem; letter-spacing: .12em; color: var(--dim); text-transform: uppercase; margin-top: .2rem; }
+
+    /* ── COMMITTEES ───────────────────────────────────── */
+    #committees { padding: 0 0 4rem; }
+
+    .section-header { padding: 3rem 1.4rem 2rem; max-width: 600px; margin: 0 auto; }
+    .section-eyebrow { font-size: .65rem; letter-spacing: .4em; color: var(--gold); text-transform: uppercase; margin-bottom: .7rem; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem,8vw,3rem); letter-spacing: .05em; }
+
+    .committees-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+
+    .c-item {
+      background: var(--black);
+      position: relative; overflow: hidden;
+    }
+    .c-item-bg { position: absolute; inset: 0; opacity: .35; transition: opacity .4s; }
+    .c-item:hover .c-item-bg { opacity: .5; }
+
+    .c-item-inner {
+      position: relative; z-index: 1;
+      padding: 1.8rem 1.4rem;
+      max-width: 600px; margin: 0 auto;
+    }
+
+    .c-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+    .c-type { font-size: .6rem; letter-spacing: .35em; color: var(--gold); text-transform: uppercase; margin-bottom: .3rem; }
+    .c-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.6rem,6vw,2.2rem); letter-spacing: .04em; line-height: 1; }
+    .c-logo svg { width: 38px; height: 38px; opacity: .7; flex-shrink: 0; }
+
     .c-agenda {
-      background: rgba(5,8,16,.72); backdrop-filter: blur(18px);
-      border: 1px solid rgba(255,255,255,.1); border-radius: 10px;
-      padding: 1.1rem 1.4rem; margin: 1.4rem 0 1.2rem;
+      font-size: .82rem; color: rgba(255,255,255,.72); line-height: 1.65;
+      border-left: 2px solid var(--gold); padding-left: .9rem;
+      font-style: italic; margin-bottom: 1.3rem;
     }
-    .c-agenda-lbl { font-size: .58rem; letter-spacing: .3em; color: var(--gold); text-transform: uppercase; margin-bottom: .45rem; }
-    .c-agenda p   { font-size: .82rem; color: rgba(255,255,255,.88); line-height: 1.6; font-style: italic; }
-    .c-agenda-en  { font-size: .72rem; color: var(--dim); margin-top: .5rem; font-style: normal; }
+    .c-agenda-en { font-size: .72rem; color: var(--dim); margin-top: .4rem; font-style: normal; }
 
-    /* Chairs */
-    .c-chairs-lbl { font-size: .58rem; letter-spacing: .3em; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: .9rem; }
-    .chairs-row { display: grid; grid-template-columns: repeat(3,1fr); gap: .7rem; }
-    .chair { text-align: center; }
-    .chair img {
-      width: 62px; height: 62px; border-radius: 50%; display: block; margin: 0 auto .45rem;
-      border: 2px solid var(--gold); object-fit: cover;
+    .c-divider { height: 1px; background: var(--border); margin-bottom: 1.2rem; }
+
+    .c-chairs-label { font-size: .58rem; letter-spacing: .3em; color: var(--dim); text-transform: uppercase; margin-bottom: .9rem; }
+    .c-chairs { display: grid; grid-template-columns: repeat(3,1fr); gap: .8rem; }
+    .c-chair { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .4rem; }
+    .c-chair img {
+      width: 58px; height: 58px; border-radius: 50%;
+      border: 1.5px solid rgba(201,160,32,.6); object-fit: cover;
     }
-    .chair-name { font-size: .68rem; font-weight: 600; letter-spacing: .03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .chair-role { font-size: .58rem; color: var(--gold); letter-spacing: .1em; margin-top: .15rem; }
+    .c-chair-name { font-size: .68rem; font-weight: 600; line-height: 1.2; }
+    .c-chair-role { font-size: .6rem; color: var(--gold); letter-spacing: .08em; }
 
-    /* ── Modal ─────────────────────────────────────────── */
+    /* ── REGISTER MODAL ───────────────────────────────── */
     .modal-wrap {
       display: none; position: fixed; inset: 0; z-index: 9999;
       align-items: center; justify-content: center;
-      background: rgba(0,0,0,.82); backdrop-filter: blur(8px);
+      background: rgba(0,0,0,.88); backdrop-filter: blur(6px);
     }
     .modal-wrap.open { display: flex; }
     .modal {
-      background: var(--dark2); border: 1px solid var(--gborder);
-      max-width: 480px; width: 92%; padding: 2.8rem 2.5rem;
-      position: relative; text-align: center;
+      background: var(--dark); border: 1px solid var(--border);
+      width: 92%; max-width: 420px;
+      padding: 2.5rem 2rem; position: relative; text-align: center;
     }
-    .modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
-    .modal-x { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; color: var(--dim); font-size: 1.4rem; cursor: pointer; line-height: 1; transition: color .3s; }
-    .modal-x:hover { color: var(--gold); }
-    .modal svg { width: 56px; height: 56px; margin-bottom: 1.3rem; }
-    .modal h2 { font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: .08em; margin-bottom: .8rem; }
-    .modal-bar { width: 55px; height: 1px; background: var(--gold); margin: 1.2rem auto; }
-    .modal p  { font-size: .88rem; color: var(--dim); line-height: 1.7; margin-bottom: .8rem; }
-    .modal-btn {
-      background: var(--gold); color: var(--dark); border: none;
-      padding: .75rem 2rem; font-family: 'Cinzel', serif; font-size: .78rem; font-weight: 700;
-      letter-spacing: .15em; cursor: pointer; text-transform: uppercase; transition: background .3s;
-      margin-top: .6rem;
+    .modal-bar { position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); }
+    .modal-x { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--dim); font-size: 1.3rem; cursor: pointer; transition: color .2s; }
+    .modal-x:hover { color: #fff; }
+    .modal svg { width: 50px; height: 50px; margin-bottom: 1.2rem; }
+    .modal h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: .06em; margin-bottom: .8rem; }
+    .modal p { font-size: .85rem; color: var(--dim); line-height: 1.7; margin-bottom: .6rem; }
+    .modal-close-btn {
+      display: block; width: 100%; margin-top: 1.4rem; padding: .85rem;
+      background: var(--gold); color: var(--black); border: none; cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: .12em;
+      text-transform: uppercase; transition: background .2s;
     }
-    .modal-btn:hover { background: var(--gold-light); }
+    .modal-close-btn:hover { background: var(--gold2); }
 
-    /* ── Footer ────────────────────────────────────────── */
-    footer { background: var(--dark2); border-top: 1px solid var(--gborder); padding: 3rem 2rem; text-align: center; }
-    .footer-logo { display: flex; align-items: center; justify-content: center; gap: .7rem; margin-bottom: 1.4rem; }
-    .footer-logo svg { width: 32px; height: 32px; }
-    .footer-logo span { font-family: 'Cinzel', serif; font-size: .95rem; font-weight: 700; letter-spacing: .15em; }
-    .footer-links { display: flex; justify-content: center; gap: 2rem; list-style: none; margin-bottom: 1.4rem; flex-wrap: wrap; }
-    .footer-links a { text-decoration: none; color: var(--dim); font-size: .72rem; letter-spacing: .1em; transition: color .3s; }
-    .footer-links a:hover { color: var(--gold); }
-    .footer-copy { font-size: .7rem; color: rgba(255,255,255,.25); }
-
-    /* ── Responsive ────────────────────────────────────── */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.4rem; }
-      .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(5,8,16,.98); flex-direction: column; padding: 1.5rem; gap: 1.5rem; border-bottom: 1px solid var(--gborder); }
-      .nav-links.open { display: flex; }
-      .nav-reg { display: none; }
-      .hamburger { display: flex; }
-      .committees-grid { grid-template-columns: 1fr; }
-      .committee-card { min-height: 560px; }
-      .c-content { min-height: 560px; }
+    /* ── FOOTER ───────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border); padding: 2.5rem 1.4rem;
+      text-align: center; background: var(--black);
     }
+    .footer-logo-row { display: flex; align-items: center; justify-content: center; gap: .55rem; margin-bottom: 1.2rem; }
+    .footer-logo-row svg { width: 26px; height: 26px; }
+    .footer-logo-row span { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .08em; }
+    footer p { font-size: .68rem; color: rgba(255,255,255,.22); }
   </style>
 </head>
 <body>
 
-<!-- ── Navigation ──────────────────────────────────────── -->
+<!-- ── INTRO ───────────────────────────────────────────── -->
+<section id="intro">
+  <div class="glow-ring">
+    <svg id="logo-svg-intro" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white">
+      <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="1.4"/>
+      <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="white" stroke-width=".9"/>
+      <line x1="30" y1="50" x2="70" y2="50" stroke="white" stroke-width=".8"/>
+      <line x1="32" y1="43" x2="68" y2="43" stroke="white" stroke-width=".6"/>
+      <line x1="32" y1="57" x2="68" y2="57" stroke="white" stroke-width=".6"/>
+      <path d="M30,50 Q22,44 16,38" stroke="white" stroke-width="1" fill="none"/>
+      <path d="M30,50 Q20,50 13,50" stroke="white" stroke-width="1" fill="none"/>
+      <path d="M30,50 Q22,56 16,62" stroke="white" stroke-width="1" fill="none"/>
+      <ellipse cx="24" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(-35 24 46)"/>
+      <ellipse cx="18" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 18 41)"/>
+      <ellipse cx="20" cy="50" rx="4" ry="2.2" fill="white"/>
+      <ellipse cx="14" cy="50" rx="3.5" ry="1.8" fill="white"/>
+      <ellipse cx="24" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(35 24 54)"/>
+      <ellipse cx="18" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(40 18 59)"/>
+      <path d="M70,50 Q78,44 84,38" stroke="white" stroke-width="1" fill="none"/>
+      <path d="M70,50 Q80,50 87,50" stroke="white" stroke-width="1" fill="none"/>
+      <path d="M70,50 Q78,56 84,62" stroke="white" stroke-width="1" fill="none"/>
+      <ellipse cx="76" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(35 76 46)"/>
+      <ellipse cx="82" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(40 82 41)"/>
+      <ellipse cx="80" cy="50" rx="4" ry="2.2" fill="white"/>
+      <ellipse cx="86" cy="50" rx="3.5" ry="1.8" fill="white"/>
+      <ellipse cx="76" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(-35 76 54)"/>
+      <ellipse cx="82" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 82 59)"/>
+      <path d="M13,52 Q50,80 87,52" stroke="white" stroke-width="1" fill="none"/>
+    </svg>
+  </div>
+  <div class="intro-title">GLOBAL STEP<br>MUN<br><span class="intro-year">2025</span></div>
+  <div class="intro-rule"></div>
+  <p class="intro-sub">Global Step Model United Nations</p>
+</section>
+
+<!-- ── NAV ─────────────────────────────────────────────── -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white">
-      <circle cx="50" cy="50" r="48" fill="none" stroke="white" stroke-width="1.2"/>
-      <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="1.2"/>
-      <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="white" stroke-width=".8"/>
-      <line x1="30" y1="50" x2="70" y2="50" stroke="white" stroke-width=".7"/>
-      <line x1="32" y1="43" x2="68" y2="43" stroke="white" stroke-width=".5"/>
-      <line x1="32" y1="57" x2="68" y2="57" stroke="white" stroke-width=".5"/>
-      <path d="M30,50 Q22,44 16,38" stroke="white" stroke-width=".9" fill="none"/>
-      <path d="M30,50 Q20,50 13,50" stroke="white" stroke-width=".9" fill="none"/>
-      <path d="M30,50 Q22,56 16,62" stroke="white" stroke-width=".9" fill="none"/>
+      <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="1.4"/>
+      <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="white" stroke-width=".9"/>
+      <line x1="30" y1="50" x2="70" y2="50" stroke="white" stroke-width=".8"/>
+      <path d="M30,50 Q22,44 16,38" stroke="white" stroke-width="1" fill="none"/>
+      <path d="M30,50 Q20,50 13,50" stroke="white" stroke-width="1" fill="none"/>
+      <path d="M30,50 Q22,56 16,62" stroke="white" stroke-width="1" fill="none"/>
       <ellipse cx="24" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(-35 24 46)"/>
       <ellipse cx="18" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 18 41)"/>
       <ellipse cx="20" cy="50" rx="4" ry="2.2" fill="white"/>
       <ellipse cx="14" cy="50" rx="3.5" ry="1.8" fill="white"/>
       <ellipse cx="24" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(35 24 54)"/>
       <ellipse cx="18" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(40 18 59)"/>
-      <path d="M70,50 Q78,44 84,38" stroke="white" stroke-width=".9" fill="none"/>
-      <path d="M70,50 Q80,50 87,50" stroke="white" stroke-width=".9" fill="none"/>
-      <path d="M70,50 Q78,56 84,62" stroke="white" stroke-width=".9" fill="none"/>
+      <path d="M70,50 Q78,44 84,38" stroke="white" stroke-width="1" fill="none"/>
+      <path d="M70,50 Q80,50 87,50" stroke="white" stroke-width="1" fill="none"/>
+      <path d="M70,50 Q78,56 84,62" stroke="white" stroke-width="1" fill="none"/>
       <ellipse cx="76" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(35 76 46)"/>
       <ellipse cx="82" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(40 82 41)"/>
       <ellipse cx="80" cy="50" rx="4" ry="2.2" fill="white"/>
       <ellipse cx="86" cy="50" rx="3.5" ry="1.8" fill="white"/>
       <ellipse cx="76" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(-35 76 54)"/>
       <ellipse cx="82" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 82 59)"/>
-      <path d="M13,52 Q50,80 87,52" stroke="white" stroke-width=".9" fill="none"/>
+      <path d="M13,52 Q50,80 87,52" stroke="white" stroke-width="1" fill="none"/>
     </svg>
-    <div class="nav-logo-text">GLOBAL STEP<span>MODEL UNITED NATIONS</span></div>
+    <span>GS MUN</span>
   </a>
-
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#about">About</a></li>
-    <li><a href="#committees">Committees</a></li>
-    <li><a href="#" onclick="openModal(event)">Register</a></li>
-  </ul>
-  <button class="nav-reg" onclick="openModal(event)">Register</button>
-  <button class="hamburger" id="hbg"><span></span><span></span><span></span></button>
+  <div class="nav-right">
+    <div class="nav-social">
+      <!-- Instagram -->
+      <a href="#" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <!-- Telegram -->
+      <a href="#" aria-label="Telegram">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+        </svg>
+      </a>
+    </div>
+    <button class="hamburger" id="hbg" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
-<!-- ── Hero ─────────────────────────────────────────────── -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <canvas id="particles"></canvas>
-  <div class="hero-content">
-    <div class="hero-emblem">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white">
-        <circle cx="50" cy="50" r="48" fill="none" stroke="white" stroke-width="1.2"/>
-        <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="1.2"/>
-        <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="white" stroke-width=".8"/>
-        <line x1="30" y1="50" x2="70" y2="50" stroke="white" stroke-width=".7"/>
-        <line x1="32" y1="43" x2="68" y2="43" stroke="white" stroke-width=".5"/>
-        <line x1="32" y1="57" x2="68" y2="57" stroke="white" stroke-width=".5"/>
-        <path d="M30,50 Q22,44 16,38" stroke="white" stroke-width=".9" fill="none"/>
-        <path d="M30,50 Q20,50 13,50" stroke="white" stroke-width=".9" fill="none"/>
-        <path d="M30,50 Q22,56 16,62" stroke="white" stroke-width=".9" fill="none"/>
-        <ellipse cx="24" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(-35 24 46)"/>
-        <ellipse cx="18" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 18 41)"/>
-        <ellipse cx="20" cy="50" rx="4" ry="2.2" fill="white"/>
-        <ellipse cx="14" cy="50" rx="3.5" ry="1.8" fill="white"/>
-        <ellipse cx="24" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(35 24 54)"/>
-        <ellipse cx="18" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(40 18 59)"/>
-        <path d="M70,50 Q78,44 84,38" stroke="white" stroke-width=".9" fill="none"/>
-        <path d="M70,50 Q80,50 87,50" stroke="white" stroke-width=".9" fill="none"/>
-        <path d="M70,50 Q78,56 84,62" stroke="white" stroke-width=".9" fill="none"/>
-        <ellipse cx="76" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(35 76 46)"/>
-        <ellipse cx="82" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(40 82 41)"/>
-        <ellipse cx="80" cy="50" rx="4" ry="2.2" fill="white"/>
-        <ellipse cx="86" cy="50" rx="3.5" ry="1.8" fill="white"/>
-        <ellipse cx="76" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(-35 76 54)"/>
-        <ellipse cx="82" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 82 59)"/>
-        <path d="M13,52 Q50,80 87,52" stroke="white" stroke-width=".9" fill="none"/>
-      </svg>
-    </div>
-    <h1 class="hero-title">GLOBAL STEP MUN</h1>
-    <p class="hero-sub">Model United Nations</p>
-    <div class="hero-line"></div>
-    <p class="hero-tagline">Diplomacy. Leadership. Change.<br>Nine committees. One world stage.</p>
-    <div class="hero-cta">
-      <button class="btn-gold" onclick="openModal(event)">Register Now</button>
-      <button class="btn-outline" onclick="document.getElementById('committees').scrollIntoView({behavior:'smooth'})">View Committees</button>
-    </div>
-  </div>
-  <div class="scroll-hint"><span>Scroll</span></div>
-</section>
+<!-- Full-screen menu overlay -->
+<div class="nav-menu" id="navMenu">
+  <a href="#main"        onclick="closeMenu()">Home</a>
+  <a href="#committees"  onclick="closeMenu()">Committees</a>
+  <a href="#"            onclick="closeMenu(); openModal(event)">Register</a>
+</div>
 
-<!-- ── About ─────────────────────────────────────────────── -->
-<section id="about">
-  <div class="sec-header">
-    <div class="sec-label">About the Conference</div>
-    <h2 class="sec-title">Global Step MUN</h2>
-    <div class="sec-bar"></div>
-  </div>
-  <div class="about-grid">
-    <div class="about-card">
-      <div class="about-icon">🌍</div>
-      <h3>9 Committees</h3>
-      <p>Engage in high-level debate across nine specialized committees tackling the most pressing global challenges of our time.</p>
-    </div>
-    <div class="about-card">
-      <div class="about-icon">🎓</div>
-      <h3>Expert Chairs</h3>
-      <p>Each committee is guided by experienced chairs dedicated to facilitating substantive, structured, and impactful debate.</p>
-    </div>
-    <div class="about-card">
-      <div class="about-icon">✍️</div>
-      <h3>Register Today</h3>
-      <p>Secure your place at Global Step MUN. Open to delegates of all experience levels — from first-timers to seasoned diplomats.</p>
-    </div>
-  </div>
-</section>
+<!-- ── MAIN CONTENT ─────────────────────────────────────── -->
+<div id="main">
+  <p class="date-pill">2025 &nbsp;·&nbsp; TBA</p>
 
-<!-- ── Committees ─────────────────────────────────────────── -->
-<section id="committees">
-  <div class="sec-header">
-    <div class="sec-label">2025 Session</div>
-    <h2 class="sec-title">Committees</h2>
-    <div class="sec-bar"></div>
-  </div>
-  <div class="committees-grid" id="committeesGrid"></div>
-</section>
+  <h1 class="main-title">
+    GLOBAL<br>STEP<br>MODEL<br>UNITED<br><span class="accent">NATIONS</span>
+  </h1>
 
-<!-- ── Footer ─────────────────────────────────────────────── -->
-<footer>
-  <div class="footer-logo">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white">
-      <circle cx="50" cy="50" r="48" fill="none" stroke="white" stroke-width="1.2"/>
-      <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="1.2"/>
-      <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="white" stroke-width=".8"/>
-      <line x1="30" y1="50" x2="70" y2="50" stroke="white" stroke-width=".7"/>
-      <line x1="32" y1="43" x2="68" y2="43" stroke="white" stroke-width=".5"/>
-      <line x1="32" y1="57" x2="68" y2="57" stroke="white" stroke-width=".5"/>
-      <path d="M30,50 Q22,44 16,38" stroke="white" stroke-width=".9" fill="none"/>
-      <path d="M30,50 Q20,50 13,50" stroke="white" stroke-width=".9" fill="none"/>
-      <path d="M30,50 Q22,56 16,62" stroke="white" stroke-width=".9" fill="none"/>
-      <ellipse cx="24" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(-35 24 46)"/>
-      <ellipse cx="18" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 18 41)"/>
-      <ellipse cx="20" cy="50" rx="4" ry="2.2" fill="white"/>
-      <ellipse cx="14" cy="50" rx="3.5" ry="1.8" fill="white"/>
-      <ellipse cx="24" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(35 24 54)"/>
-      <ellipse cx="18" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(40 18 59)"/>
-      <path d="M70,50 Q78,44 84,38" stroke="white" stroke-width=".9" fill="none"/>
-      <path d="M70,50 Q80,50 87,50" stroke="white" stroke-width=".9" fill="none"/>
-      <path d="M70,50 Q78,56 84,62" stroke="white" stroke-width=".9" fill="none"/>
-      <ellipse cx="76" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(35 76 46)"/>
-      <ellipse cx="82" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(40 82 41)"/>
-      <ellipse cx="80" cy="50" rx="4" ry="2.2" fill="white"/>
-      <ellipse cx="86" cy="50" rx="3.5" ry="1.8" fill="white"/>
-      <ellipse cx="76" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(-35 76 54)"/>
-      <ellipse cx="82" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 82 59)"/>
-      <path d="M13,52 Q50,80 87,52" stroke="white" stroke-width=".9" fill="none"/>
+  <p class="tagline">A new generation of diplomats begins here.</p>
+
+  <p class="open-date">2025 — See you at opening</p>
+
+  <button class="btn-register" onclick="openModal(event)">
+    REGISTER NOW
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
     </svg>
-    <span>GLOBAL STEP MUN</span>
-  </div>
-  <ul class="footer-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#committees">Committees</a></li>
-    <li><a href="#" onclick="openModal(event)">Register</a></li>
-  </ul>
-  <p class="footer-copy">&copy; 2025 Global Step MUN. All rights reserved.</p>
-</footer>
+  </button>
 
-<!-- ── Register Modal ─────────────────────────────────────── -->
-<div class="modal-wrap" id="modalWrap" onclick="handleOverlay(event)">
-  <div class="modal">
-    <button class="modal-x" onclick="closeModal()">&#x00D7;</button>
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="#c9a227">
-      <circle cx="50" cy="50" r="48" fill="none" stroke="#c9a227" stroke-width="1.5"/>
-      <circle cx="50" cy="50" r="20" fill="none" stroke="#c9a227" stroke-width="1.2"/>
-      <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="#c9a227" stroke-width=".8"/>
-      <line x1="30" y1="50" x2="70" y2="50" stroke="#c9a227" stroke-width=".7"/>
-      <line x1="32" y1="43" x2="68" y2="43" stroke="#c9a227" stroke-width=".5"/>
-      <line x1="32" y1="57" x2="68" y2="57" stroke="#c9a227" stroke-width=".5"/>
-      <path d="M30,50 Q22,44 16,38" stroke="#c9a227" stroke-width=".9" fill="none"/>
-      <path d="M30,50 Q20,50 13,50" stroke="#c9a227" stroke-width=".9" fill="none"/>
-      <path d="M30,50 Q22,56 16,62" stroke="#c9a227" stroke-width=".9" fill="none"/>
-      <ellipse cx="24" cy="46" rx="4" ry="2.2" fill="#c9a227" transform="rotate(-35 24 46)"/>
-      <ellipse cx="18" cy="41" rx="3.5" ry="1.8" fill="#c9a227" transform="rotate(-40 18 41)"/>
-      <ellipse cx="20" cy="50" rx="4" ry="2.2" fill="#c9a227"/>
-      <ellipse cx="14" cy="50" rx="3.5" ry="1.8" fill="#c9a227"/>
-      <ellipse cx="24" cy="54" rx="4" ry="2.2" fill="#c9a227" transform="rotate(35 24 54)"/>
-      <ellipse cx="18" cy="59" rx="3.5" ry="1.8" fill="#c9a227" transform="rotate(40 18 59)"/>
-      <path d="M70,50 Q78,44 84,38" stroke="#c9a227" stroke-width=".9" fill="none"/>
-      <path d="M70,50 Q80,50 87,50" stroke="#c9a227" stroke-width=".9" fill="none"/>
-      <path d="M70,50 Q78,56 84,62" stroke="#c9a227" stroke-width=".9" fill="none"/>
-      <ellipse cx="76" cy="46" rx="4" ry="2.2" fill="#c9a227" transform="rotate(35 76 46)"/>
-      <ellipse cx="82" cy="41" rx="3.5" ry="1.8" fill="#c9a227" transform="rotate(40 82 41)"/>
-      <ellipse cx="80" cy="50" rx="4" ry="2.2" fill="#c9a227"/>
-      <ellipse cx="86" cy="50" rx="3.5" ry="1.8" fill="#c9a227"/>
-      <ellipse cx="76" cy="54" rx="4" ry="2.2" fill="#c9a227" transform="rotate(-35 76 54)"/>
-      <ellipse cx="82" cy="59" rx="3.5" ry="1.8" fill="#c9a227" transform="rotate(-40 82 59)"/>
-      <path d="M13,52 Q50,80 87,52" stroke="#c9a227" stroke-width=".9" fill="none"/>
+  <a class="btn-committees" href="#committees">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="17" cy="5" r="3"/><circle cx="7" cy="12" r="3"/><circle cx="17" cy="19" r="3"/>
+      <line x1="9.7" y1="10.7" x2="14.3" y2="6.3"/><line x1="9.7" y1="13.3" x2="14.3" y2="17.7"/>
     </svg>
-    <h2>Registration</h2>
-    <div class="modal-bar"></div>
-    <p>Thank you for your interest in <strong>Global Step MUN</strong>.</p>
-    <p>The official registration form will be available shortly. Stay tuned to our official channels for the link and all conference details.</p>
-    <button class="modal-btn" onclick="closeModal()">Got It</button>
+    VIEW COMMITTEES
+  </a>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">400+</div><div class="stat-lbl">Delegates</div></div>
+    <div class="stat"><div class="stat-num">9</div><div class="stat-lbl">Committees</div></div>
+    <div class="stat"><div class="stat-num">15+</div><div class="stat-lbl">Countries</div></div>
+    <div class="stat"><div class="stat-num">2</div><div class="stat-lbl">Days</div></div>
   </div>
 </div>
 
-<!-- ── Scripts ─────────────────────────────────────────────── -->
+<!-- ── COMMITTEES ────────────────────────────────────────── -->
+<section id="committees">
+  <div class="section-header">
+    <div class="section-eyebrow">2025 Session</div>
+    <h2 class="section-title">COMMITTEES</h2>
+  </div>
+  <div class="committees-list" id="committeesEl"></div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-logo-row">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white">
+      <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="1.4"/>
+      <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="white" stroke-width=".9"/>
+      <line x1="30" y1="50" x2="70" y2="50" stroke="white" stroke-width=".8"/>
+      <path d="M30,50 Q22,44 16,38" stroke="white" stroke-width="1" fill="none"/>
+      <path d="M30,50 Q20,50 13,50" stroke="white" stroke-width="1" fill="none"/>
+      <path d="M30,50 Q22,56 16,62" stroke="white" stroke-width="1" fill="none"/>
+      <ellipse cx="24" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(-35 24 46)"/>
+      <ellipse cx="18" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 18 41)"/>
+      <ellipse cx="20" cy="50" rx="4" ry="2.2" fill="white"/>
+      <ellipse cx="14" cy="50" rx="3.5" ry="1.8" fill="white"/>
+      <ellipse cx="24" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(35 24 54)"/>
+      <ellipse cx="18" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(40 18 59)"/>
+      <path d="M70,50 Q78,44 84,38" stroke="white" stroke-width="1" fill="none"/>
+      <path d="M70,50 Q80,50 87,50" stroke="white" stroke-width="1" fill="none"/>
+      <path d="M70,50 Q78,56 84,62" stroke="white" stroke-width="1" fill="none"/>
+      <ellipse cx="76" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(35 76 46)"/>
+      <ellipse cx="82" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(40 82 41)"/>
+      <ellipse cx="80" cy="50" rx="4" ry="2.2" fill="white"/>
+      <ellipse cx="86" cy="50" rx="3.5" ry="1.8" fill="white"/>
+      <ellipse cx="76" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(-35 76 54)"/>
+      <ellipse cx="82" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 82 59)"/>
+      <path d="M13,52 Q50,80 87,52" stroke="white" stroke-width="1" fill="none"/>
+    </svg>
+    <span>GLOBAL STEP MUN</span>
+  </div>
+  <p>&copy; 2025 Global Step MUN. All rights reserved.</p>
+</footer>
+
+<!-- ── MODAL ──────────────────────────────────────────────── -->
+<div class="modal-wrap" id="modalWrap" onclick="handleOverlay(event)">
+  <div class="modal">
+    <div class="modal-bar"></div>
+    <button class="modal-x" onclick="closeModal()">&#x00D7;</button>
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="#C9A020">
+      <circle cx="50" cy="50" r="20" fill="none" stroke="#C9A020" stroke-width="1.4"/>
+      <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="#C9A020" stroke-width=".9"/>
+      <line x1="30" y1="50" x2="70" y2="50" stroke="#C9A020" stroke-width=".8"/>
+      <path d="M30,50 Q22,44 16,38" stroke="#C9A020" stroke-width="1" fill="none"/>
+      <path d="M30,50 Q20,50 13,50" stroke="#C9A020" stroke-width="1" fill="none"/>
+      <path d="M30,50 Q22,56 16,62" stroke="#C9A020" stroke-width="1" fill="none"/>
+      <ellipse cx="24" cy="46" rx="4" ry="2.2" fill="#C9A020" transform="rotate(-35 24 46)"/>
+      <ellipse cx="18" cy="41" rx="3.5" ry="1.8" fill="#C9A020" transform="rotate(-40 18 41)"/>
+      <ellipse cx="20" cy="50" rx="4" ry="2.2" fill="#C9A020"/>
+      <ellipse cx="14" cy="50" rx="3.5" ry="1.8" fill="#C9A020"/>
+      <ellipse cx="24" cy="54" rx="4" ry="2.2" fill="#C9A020" transform="rotate(35 24 54)"/>
+      <ellipse cx="18" cy="59" rx="3.5" ry="1.8" fill="#C9A020" transform="rotate(40 18 59)"/>
+      <path d="M70,50 Q78,44 84,38" stroke="#C9A020" stroke-width="1" fill="none"/>
+      <path d="M70,50 Q80,50 87,50" stroke="#C9A020" stroke-width="1" fill="none"/>
+      <path d="M70,50 Q78,56 84,62" stroke="#C9A020" stroke-width="1" fill="none"/>
+      <ellipse cx="76" cy="46" rx="4" ry="2.2" fill="#C9A020" transform="rotate(35 76 46)"/>
+      <ellipse cx="82" cy="41" rx="3.5" ry="1.8" fill="#C9A020" transform="rotate(40 82 41)"/>
+      <ellipse cx="80" cy="50" rx="4" ry="2.2" fill="#C9A020"/>
+      <ellipse cx="86" cy="50" rx="3.5" ry="1.8" fill="#C9A020"/>
+      <ellipse cx="76" cy="54" rx="4" ry="2.2" fill="#C9A020" transform="rotate(-35 76 54)"/>
+      <ellipse cx="82" cy="59" rx="3.5" ry="1.8" fill="#C9A020" transform="rotate(-40 82 59)"/>
+      <path d="M13,52 Q50,80 87,52" stroke="#C9A020" stroke-width="1" fill="none"/>
+    </svg>
+    <h2>REGISTRATION</h2>
+    <p>Thank you for your interest in <strong>Global Step MUN</strong>.</p>
+    <p>The official registration form will be shared soon. Stay tuned on our Instagram and Telegram for the link.</p>
+    <button class="modal-close-btn" onclick="closeModal()">GOT IT</button>
+  </div>
+</div>
+
 <script>
-/* ─ Data ─────────────────────────────────────────────────── */
+/* ── Committee Data ──────────────────────────────────── */
 const committees = [
-  {
-    id: 'unga',
-    type: 'UNGA',
-    name: 'GENERAL\nASSEMBLY',
-    agenda: 'Addressing allegations of human rights violations against Uyghurs in Xinjiang including arbitrary detention, forced labour and cultural rights.',
-    gradient: 'linear-gradient(160deg,#0d2240 0%,#1a3a6b 55%,#0a1628 100%)',
-    chairs: [
-      { name: 'Sarah Chen',    role: 'Chair',    img: 'https://randomuser.me/api/portraits/women/44.jpg' },
-      { name: 'James Okafor', role: 'Co-Chair', img: 'https://randomuser.me/api/portraits/men/32.jpg'   },
-      { name: 'Layla Mansouri',role: 'Director', img: 'https://randomuser.me/api/portraits/women/68.jpg' },
-    ]
-  },
-  {
-    id: 'unhrc',
-    type: 'UNHRC',
-    name: 'HUMAN RIGHTS\nCOUNCIL',
-    agenda: 'The mass harvesting of DNA and facial data to track, profile, and target civilian populations.',
-    gradient: 'linear-gradient(160deg,#0d2620 0%,#1a4535 55%,#0a1c18 100%)',
-    chairs: [
-      { name: 'Marcus Thompson',role: 'Chair',    img: 'https://randomuser.me/api/portraits/men/52.jpg'   },
-      { name: 'Priya Sharma',   role: 'Co-Chair', img: 'https://randomuser.me/api/portraits/women/28.jpg' },
-      { name: 'Ali Hassan',     role: 'Director', img: 'https://randomuser.me/api/portraits/men/77.jpg'   },
-    ]
-  },
-  {
-    id: 'unicef',
-    type: 'UNICEF',
-    name: 'UNICEF',
-    label: 'COMITTIE',
-    agenda: 'Establishing global protocols for the legal protection, education, and mental healthcare of children displaced across borders by environmental disasters.',
-    gradient: 'linear-gradient(160deg,#2d1a0a 0%,#5c3515 55%,#1e1208 100%)',
-    chairs: [
-      { name: 'Emma Rodriguez',  role: 'Chair',    img: 'https://randomuser.me/api/portraits/women/15.jpg' },
-      { name: 'David Kimura',    role: 'Co-Chair', img: 'https://randomuser.me/api/portraits/men/63.jpg'   },
-      { name: 'Fatima Al-Rashidi',role:'Director', img: 'https://randomuser.me/api/portraits/women/81.jpg' },
-    ]
-  },
-  {
-    id: 'unesco',
-    type: 'UNESCO',
-    name: 'WORLD\nHERITAGE SITE',
-    agenda: 'Strengthening Global Protection for Cultural Heritage in Conflict Conditions.',
-    gradient: 'linear-gradient(160deg,#2d2510 0%,#5c4a20 55%,#1e1a0a 100%)',
-    chairs: [
-      { name: 'Sophie Laurent', role: 'Chair',    img: 'https://randomuser.me/api/portraits/women/40.jpg' },
-      { name: 'Omar Benali',    role: 'Co-Chair', img: 'https://randomuser.me/api/portraits/men/21.jpg'   },
-      { name: 'Isabella Costa', role: 'Director', img: 'https://randomuser.me/api/portraits/women/55.jpg' },
-    ]
-  },
-  {
-    id: 'who',
-    type: 'WHO',
-    name: 'WORLD HEALTH\nORGANIZATION',
-    agenda: 'Formulating global health guidelines to mitigate transmission risks in regions where wildlife, bushmeat, or rodent populations are utilized in local commerce and traditional practices.',
-    gradient: 'linear-gradient(160deg,#050d2d 0%,#0a1a5c 55%,#030810 100%)',
-    chairs: [
-      { name: 'Dr. Amara Diallo',  role: 'Chair',    img: 'https://randomuser.me/api/portraits/women/73.jpg' },
-      { name: 'Dr. Raj Patel',     role: 'Co-Chair', img: 'https://randomuser.me/api/portraits/men/42.jpg'   },
-      { name: 'Dr. Hannah Mueller',role: 'Director', img: 'https://randomuser.me/api/portraits/women/19.jpg' },
-    ]
-  },
-  {
-    id: 'sc',
-    type: 'SC',
-    name: 'SECURITY\nCOUNCIL',
-    agenda: 'Armed Conflict in the Eastern Democratic Republic of the Congo.',
-    gradient: 'linear-gradient(160deg,#1a0a0a 0%,#2d1515 55%,#0d0808 100%)',
-    chairs: [
-      { name: 'Alexander Petrov', role: 'Chair',    img: 'https://randomuser.me/api/portraits/men/88.jpg'   },
-      { name: 'Amina Touré',      role: 'Co-Chair', img: 'https://randomuser.me/api/portraits/women/56.jpg' },
-      { name: 'Lucas Ferreira',   role: 'Director', img: 'https://randomuser.me/api/portraits/men/11.jpg'   },
-    ]
-  },
-  {
-    id: 'crisis',
-    type: 'CRISIS',
-    name: 'CRISIS\nCOMMITTEE',
-    agenda: 'Managing the triage, isolation, and treatment of the 147 passengers and crew in strict shipboard quarantine.',
-    gradient: 'linear-gradient(160deg,#2d1500 0%,#5c2d00 55%,#1e0e00 100%)',
-    chairs: [
-      { name: 'Yuki Tanaka',       role: 'Chair',    img: 'https://randomuser.me/api/portraits/women/37.jpg' },
-      { name: 'Kevin Adeyemi',     role: 'Co-Chair', img: 'https://randomuser.me/api/portraits/men/64.jpg'   },
-      { name: 'Sofia Papadopoulos',role: 'Director', img: 'https://randomuser.me/api/portraits/women/92.jpg' },
-    ]
-  },
-  {
-    id: 'uncsw',
-    type: 'UNCSW',
-    name: 'UNCSW',
-    agenda: 'Compensating women for the spike in unpaid household medical care.',
-    gradient: 'linear-gradient(160deg,#1a0d28 0%,#3d1a5c 55%,#100820 100%)',
-    chairs: [
-      { name: 'Nadia Volkov',  role: 'Chair',    img: 'https://randomuser.me/api/portraits/women/8.jpg'  },
-      { name: 'Catherine Liu', role: 'Co-Chair', img: 'https://randomuser.me/api/portraits/women/49.jpg' },
-      { name: 'Aisha Bello',   role: 'Director', img: 'https://randomuser.me/api/portraits/women/76.jpg' },
-    ]
-  },
-  {
-    id: 'ecosoc',
-    type: 'ЭКОСОС',
-    name: 'ЭКОНОМИЧЕСКИЙ\nИ СОЦИАЛЬНЫЙ\nСОВЕТ',
-    sublabel: 'ECOSOC',
-    agenda: 'Помощь малым государствам в создании собственных ИИ-моделей на базе их национальной культуры.',
-    agendaEn: 'Assisting small states in creating their own AI models based on their national culture.',
-    gradient: 'linear-gradient(160deg,#050d1a 0%,#0a1f3d 55%,#030a14 100%)',
-    chairs: [
-      { name: 'Viktor Kozlov', role: 'Chair',    img: 'https://randomuser.me/api/portraits/men/34.jpg'   },
-      { name: 'Zara Ahmed',    role: 'Co-Chair', img: 'https://randomuser.me/api/portraits/women/60.jpg' },
-      { name: 'Paulo Salave\'a',role:'Director', img: 'https://randomuser.me/api/portraits/men/93.jpg'   },
-    ]
-  },
+  { type:'UNGA', name:'GENERAL ASSEMBLY',
+    agenda:'Addressing allegations of human rights violations against Uyghurs in Xinjiang including arbitrary detention, forced labour and cultural rights.',
+    gradient:'linear-gradient(135deg,#0d2240,#1a3a6b)',
+    chairs:[
+      {name:'Sarah Chen',    role:'Chair',    img:'https://randomuser.me/api/portraits/women/44.jpg'},
+      {name:'James Okafor', role:'Co-Chair', img:'https://randomuser.me/api/portraits/men/32.jpg'},
+      {name:'Layla Mansouri',role:'Director',img:'https://randomuser.me/api/portraits/women/68.jpg'},
+    ]},
+  { type:'UNHRC', name:'HUMAN RIGHTS COUNCIL',
+    agenda:'The mass harvesting of DNA and facial data to track, profile, and target civilian populations.',
+    gradient:'linear-gradient(135deg,#0d2620,#1a4535)',
+    chairs:[
+      {name:'Marcus Thompson',role:'Chair',   img:'https://randomuser.me/api/portraits/men/52.jpg'},
+      {name:'Priya Sharma',   role:'Co-Chair',img:'https://randomuser.me/api/portraits/women/28.jpg'},
+      {name:'Ali Hassan',     role:'Director',img:'https://randomuser.me/api/portraits/men/77.jpg'},
+    ]},
+  { type:'COMITTIE · UNICEF', name:'UNICEF',
+    agenda:'Establishing global protocols for the legal protection, education, and mental healthcare of children displaced across borders by environmental disasters.',
+    gradient:'linear-gradient(135deg,#2d1a0a,#5c3515)',
+    chairs:[
+      {name:'Emma Rodriguez',  role:'Chair',   img:'https://randomuser.me/api/portraits/women/15.jpg'},
+      {name:'David Kimura',    role:'Co-Chair',img:'https://randomuser.me/api/portraits/men/63.jpg'},
+      {name:'Fatima Al-Rashidi',role:'Director',img:'https://randomuser.me/api/portraits/women/81.jpg'},
+    ]},
+  { type:'UNESCO', name:'WORLD HERITAGE SITE',
+    agenda:'Strengthening Global Protection for Cultural Heritage in Conflict Conditions.',
+    gradient:'linear-gradient(135deg,#2d2510,#5c4a20)',
+    chairs:[
+      {name:'Sophie Laurent',role:'Chair',   img:'https://randomuser.me/api/portraits/women/40.jpg'},
+      {name:'Omar Benali',   role:'Co-Chair',img:'https://randomuser.me/api/portraits/men/21.jpg'},
+      {name:'Isabella Costa',role:'Director',img:'https://randomuser.me/api/portraits/women/55.jpg'},
+    ]},
+  { type:'WHO', name:'WORLD HEALTH ORGANIZATION',
+    agenda:'Formulating global health guidelines to mitigate transmission risks in regions where wildlife, bushmeat, or rodent populations are utilized in local commerce and traditional practices.',
+    gradient:'linear-gradient(135deg,#050d2d,#0a1a5c)',
+    chairs:[
+      {name:'Dr. Amara Diallo',  role:'Chair',   img:'https://randomuser.me/api/portraits/women/73.jpg'},
+      {name:'Dr. Raj Patel',     role:'Co-Chair',img:'https://randomuser.me/api/portraits/men/42.jpg'},
+      {name:'Dr. Hannah Mueller',role:'Director',img:'https://randomuser.me/api/portraits/women/19.jpg'},
+    ]},
+  { type:'SC', name:'SECURITY COUNCIL',
+    agenda:'Armed Conflict in the Eastern Democratic Republic of the Congo.',
+    gradient:'linear-gradient(135deg,#1a0808,#2d1212)',
+    chairs:[
+      {name:'Alexander Petrov',role:'Chair',   img:'https://randomuser.me/api/portraits/men/88.jpg'},
+      {name:'Amina Touré',     role:'Co-Chair',img:'https://randomuser.me/api/portraits/women/56.jpg'},
+      {name:'Lucas Ferreira',  role:'Director',img:'https://randomuser.me/api/portraits/men/11.jpg'},
+    ]},
+  { type:'CRISIS', name:'CRISIS COMMITTEE',
+    agenda:'Managing the triage, isolation, and treatment of the 147 passengers and crew in strict shipboard quarantine.',
+    gradient:'linear-gradient(135deg,#2d1500,#5c2d00)',
+    chairs:[
+      {name:'Yuki Tanaka',       role:'Chair',   img:'https://randomuser.me/api/portraits/women/37.jpg'},
+      {name:'Kevin Adeyemi',     role:'Co-Chair',img:'https://randomuser.me/api/portraits/men/64.jpg'},
+      {name:'Sofia Papadopoulos',role:'Director',img:'https://randomuser.me/api/portraits/women/92.jpg'},
+    ]},
+  { type:'UNCSW', name:'UNCSW',
+    agenda:'Compensating women for the spike in unpaid household medical care.',
+    gradient:'linear-gradient(135deg,#1a0d28,#3d1a5c)',
+    chairs:[
+      {name:'Nadia Volkov', role:'Chair',   img:'https://randomuser.me/api/portraits/women/8.jpg'},
+      {name:'Catherine Liu',role:'Co-Chair',img:'https://randomuser.me/api/portraits/women/49.jpg'},
+      {name:'Aisha Bello',  role:'Director',img:'https://randomuser.me/api/portraits/women/76.jpg'},
+    ]},
+  { type:'ЭКОСОС · ECOSOC', name:'ЭКОНОМИЧЕСКИЙ И СОЦИАЛЬНЫЙ СОВЕТ',
+    agenda:'Помощь малым государствам в создании собственных ИИ-моделей на базе их национальной культуры.',
+    agendaEn:'Assisting small states in creating their own AI models based on their national culture.',
+    gradient:'linear-gradient(135deg,#050d1a,#0a1f3d)',
+    chairs:[
+      {name:'Viktor Kozlov',role:'Chair',   img:'https://randomuser.me/api/portraits/men/34.jpg'},
+      {name:'Zara Ahmed',   role:'Co-Chair',img:'https://randomuser.me/api/portraits/women/60.jpg'},
+      {name:"Paulo Salave'a",role:'Director',img:'https://randomuser.me/api/portraits/men/93.jpg'},
+    ]},
 ];
 
-/* ─ Logo SVG (reusable string) ───────────────────────────── */
-const logoSVG = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white">
-  <circle cx="50" cy="50" r="48" fill="none" stroke="white" stroke-width="1.2"/>
-  <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="1.2"/>
-  <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="white" stroke-width=".8"/>
-  <line x1="30" y1="50" x2="70" y2="50" stroke="white" stroke-width=".7"/>
-  <line x1="32" y1="43" x2="68" y2="43" stroke="white" stroke-width=".5"/>
-  <line x1="32" y1="57" x2="68" y2="57" stroke="white" stroke-width=".5"/>
-  <path d="M30,50 Q22,44 16,38" stroke="white" stroke-width=".9" fill="none"/>
-  <path d="M30,50 Q20,50 13,50" stroke="white" stroke-width=".9" fill="none"/>
-  <path d="M30,50 Q22,56 16,62" stroke="white" stroke-width=".9" fill="none"/>
+/* ── Render Committees ───────────────────────────────── */
+const logoSmall = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="white" style="opacity:.75">
+  <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="1.4"/>
+  <ellipse cx="50" cy="50" rx="11" ry="20" fill="none" stroke="white" stroke-width=".9"/>
+  <line x1="30" y1="50" x2="70" y2="50" stroke="white" stroke-width=".8"/>
+  <path d="M30,50 Q22,44 16,38" stroke="white" stroke-width="1" fill="none"/>
+  <path d="M30,50 Q20,50 13,50" stroke="white" stroke-width="1" fill="none"/>
+  <path d="M30,50 Q22,56 16,62" stroke="white" stroke-width="1" fill="none"/>
   <ellipse cx="24" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(-35 24 46)"/>
   <ellipse cx="18" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 18 41)"/>
   <ellipse cx="20" cy="50" rx="4" ry="2.2" fill="white"/>
   <ellipse cx="14" cy="50" rx="3.5" ry="1.8" fill="white"/>
   <ellipse cx="24" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(35 24 54)"/>
   <ellipse cx="18" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(40 18 59)"/>
-  <path d="M70,50 Q78,44 84,38" stroke="white" stroke-width=".9" fill="none"/>
-  <path d="M70,50 Q80,50 87,50" stroke="white" stroke-width=".9" fill="none"/>
-  <path d="M70,50 Q78,56 84,62" stroke="white" stroke-width=".9" fill="none"/>
+  <path d="M70,50 Q78,44 84,38" stroke="white" stroke-width="1" fill="none"/>
+  <path d="M70,50 Q80,50 87,50" stroke="white" stroke-width="1" fill="none"/>
+  <path d="M70,50 Q78,56 84,62" stroke="white" stroke-width="1" fill="none"/>
   <ellipse cx="76" cy="46" rx="4" ry="2.2" fill="white" transform="rotate(35 76 46)"/>
   <ellipse cx="82" cy="41" rx="3.5" ry="1.8" fill="white" transform="rotate(40 82 41)"/>
   <ellipse cx="80" cy="50" rx="4" ry="2.2" fill="white"/>
   <ellipse cx="86" cy="50" rx="3.5" ry="1.8" fill="white"/>
   <ellipse cx="76" cy="54" rx="4" ry="2.2" fill="white" transform="rotate(-35 76 54)"/>
   <ellipse cx="82" cy="59" rx="3.5" ry="1.8" fill="white" transform="rotate(-40 82 59)"/>
-  <path d="M13,52 Q50,80 87,52" stroke="white" stroke-width=".9" fill="none"/>
+  <path d="M13,52 Q50,80 87,52" stroke="white" stroke-width="1" fill="none"/>
 </svg>`;
 
-/* ─ Render Committees ────────────────────────────────────── */
-function renderCommittees() {
-  const grid = document.getElementById('committeesGrid');
-  grid.innerHTML = committees.map(c => {
-    const nameLines = c.name.split('\n').map(l => `<span style="display:block">${l}</span>`).join('');
-    const chairsHTML = c.chairs.map(ch => `
-      <div class="chair">
-        <img src="${ch.img}" alt="${ch.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'62\\' height=\\'62\\'%3E%3Ccircle cx=\\'31\\' cy=\\'31\\' r=\\'31\\' fill=\\'%23333\\'/%3E%3Ctext x=\\'31\\' y=\\'37\\' text-anchor=\\'middle\\' fill=\\'%23999\\' font-size=\\'20\\'%3E${ch.name[0]}%3C/text%3E%3C/svg%3E'"/>
-        <div class="chair-name">${ch.name}</div>
-        <div class="chair-role">${ch.role}</div>
-      </div>`).join('');
+document.getElementById('committeesEl').innerHTML = committees.map(c => {
+  const chairs = c.chairs.map(ch => `
+    <div class="c-chair">
+      <img src="${ch.img}" alt="${ch.name}" loading="lazy"
+        onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2258%22 height=%2258%22%3E%3Ccircle cx=%2229%22 cy=%2229%22 r=%2229%22 fill=%22%23333%22/%3E%3Ctext x=%2229%22 y=%2234%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2218%22%3E${encodeURIComponent(ch.name[0])}%3C/text%3E%3C/svg%3E'"/>
+      <div class="c-chair-name">${ch.name}</div>
+      <div class="c-chair-role">${ch.role}</div>
+    </div>`).join('');
 
-    const agendaExtra = c.agendaEn ? `<p class="c-agenda-en">(${c.agendaEn})</p>` : '';
+  const extra = c.agendaEn ? `<p class="c-agenda-en">(${c.agendaEn})</p>` : '';
 
-    return `
-    <div class="committee-card">
-      <div class="c-bg" style="background:${c.gradient}"></div>
-      <div class="c-overlay"></div>
-      <div class="c-content">
-        <div class="c-logo">${logoSVG}<span class="c-logo-lbl">GLOBAL STEP</span></div>
-        <div class="c-type">${c.label || c.type}</div>
-        <div class="c-name">${nameLines}</div>
-        <div class="c-agenda">
-          <div class="c-agenda-lbl">Agenda</div>
-          <p>${c.agenda}</p>
-          ${agendaExtra}
+  return `
+  <div class="c-item">
+    <div class="c-item-bg" style="background:${c.gradient}"></div>
+    <div class="c-item-inner">
+      <div class="c-top">
+        <div>
+          <div class="c-type">${c.type}</div>
+          <div class="c-name">${c.name}</div>
         </div>
-        <div class="c-chairs-lbl">Chairs</div>
-        <div class="chairs-row">${chairsHTML}</div>
+        <div class="c-logo">${logoSmall}</div>
       </div>
-    </div>`;
-  }).join('');
+      <div class="c-agenda">${c.agenda}${extra}</div>
+      <div class="c-divider"></div>
+      <div class="c-chairs-label">Chairs</div>
+      <div class="c-chairs">${chairs}</div>
+    </div>
+  </div>`;
+}).join('');
+
+/* ── Hamburger / Menu ───────────────────────────────── */
+const hbg  = document.getElementById('hbg');
+const menu = document.getElementById('navMenu');
+hbg.addEventListener('click', () => {
+  hbg.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+});
+function closeMenu() {
+  hbg.classList.remove('open');
+  menu.classList.remove('open');
+  document.body.style.overflow = '';
 }
-renderCommittees();
 
-/* ─ Particle Canvas ──────────────────────────────────────── */
-(function initParticles() {
-  const canvas = document.getElementById('particles');
-  const ctx    = canvas.getContext('2d');
-  let W, H, particles;
-
-  function resize() {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-  }
-
-  function spawn() {
-    particles = Array.from({ length: 160 }, () => ({
-      x:  Math.random() * W,
-      y:  Math.random() * H,
-      r:  Math.random() * 1.4 + 0.3,
-      op: Math.random() * 0.7 + 0.15,
-      spd: Math.random() * 0.25 + 0.05,
-      tw:  Math.random() * 0.015 + 0.004,
-      tdir: Math.random() > 0.5 ? 1 : -1,
-    }));
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    particles.forEach(p => {
-      p.op  += p.tw * p.tdir;
-      if (p.op > 0.9 || p.op < 0.1) p.tdir *= -1;
-      p.y -= p.spd;
-      if (p.y < -4) { p.y = H + 4; p.x = Math.random() * W; }
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${p.op})`;
-      ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-
-  window.addEventListener('resize', () => { resize(); spawn(); });
-  resize(); spawn(); draw();
-})();
-
-/* ─ Navbar scroll effect ─────────────────────────────────── */
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
-});
-
-/* ─ Hamburger menu ───────────────────────────────────────── */
-document.getElementById('hbg').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('open');
-});
-
-/* ─ Modal ────────────────────────────────────────────────── */
+/* ── Modal ──────────────────────────────────────────── */
 function openModal(e) {
   if (e) e.preventDefault();
+  closeMenu();
   document.getElementById('modalWrap').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -683,11 +623,7 @@ function closeModal() {
   document.getElementById('modalWrap').classList.remove('open');
   document.body.style.overflow = '';
 }
-function handleOverlay(e) {
-  if (e.target === e.currentTarget) closeModal();
-}
-
-/* keyboard close */
+function handleOverlay(e) { if (e.target === e.currentTarget) closeModal(); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 </body>
